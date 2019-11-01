@@ -1,0 +1,91 @@
+export default [{
+  id: 1,
+  slug: 'all',
+  name: '最新車聞',
+  sort: 1
+}, {
+  id: 6736,
+  slug: 'report',
+  name: '國王報導',
+  sort: 2
+}, {
+  id: 76,
+  slug: 'tuning',
+  name: '汽車改裝',
+  sort: 3
+}, {
+  id: 79,
+  slug: 'car-news',
+  name: '車廠動態',
+  sort: 4
+}, {
+  id: 2671,
+  slug: 'super-car',
+  name: '超跑專區',
+  sort: 5
+}, {
+  id: 11,
+  slug: 'racing',
+  name: '全球賽事',
+  sort: 6
+}, {
+  id: 6292,
+  slug: 'feature-story',
+  name: '國王企劃',
+  sort: 7
+}, {
+  id: 9981,
+  slug: 'promotion',
+  name: '優惠快訊',
+  sort: 8
+}, {
+  id: 12470,
+  slug: 'testdrive',
+  name: '試駕報導',
+  sort: 9
+}, {
+  id: 10935,
+  slug: 'campaign',
+  name: '特別企劃',
+  sort: 10
+}, {
+  id: 18304,
+  slug: 'spy',
+  name: '間諜照專區',
+  sort: 11
+}, {
+  id: 18305,
+  slug: 'accessories',
+  name: '汽車零配件',
+  sort: 12
+}, {
+  id: 18306,
+  slug: 'expo',
+  name: '全球車展',
+  sort: 13
+}, {
+  id: 2917,
+  slug: 'class',
+  name: '國王學苑',
+  sort: 14
+}, {
+  id: 18308,
+  slug: 'gifts',
+  name: '生活精品',
+  sort: 15
+}, {
+  id: 18309,
+  slug: 'moto',
+  name: '二輪專區',
+  sort: 16
+}, {
+  id: 20934,
+  slug: 'videos',
+  name: '國王影音',
+  sort: 17
+}, {
+  id: 24175,
+  slug: 'greencar',
+  name: '電動世代',
+  sort: 18
+}]

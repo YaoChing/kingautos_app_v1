@@ -1,0 +1,163 @@
+export default [{
+  id: 0,
+  slug: 'index',
+  name: '首頁',
+  sort: 1,
+  screenArea: 'main',
+  subs: []
+}, {
+  id: 1,
+  slug: 'all',
+  name: '最新車聞',
+  sort: 2,
+  screenArea: 'category',
+  subs: [{
+    id: 79,
+    slug: 'car-news',
+    name: '車廠動態',
+    sort: 1,
+    screenArea: 'category'
+  }, {
+    id: 18304,
+    slug: 'spy',
+    name: '間諜照專區',
+    sort: 2,
+    screenArea: 'category'
+  }, {
+    id: 2671,
+    slug: 'super-car',
+    name: '超跑專區',
+    sort: 3,
+    screenArea: 'category'
+  }, {
+    id: 18305,
+    slug: 'accessories',
+    name: '汽車零配件',
+    sort: 5,
+    screenArea: 'category'
+  }, {
+    id: 18309,
+    slug: 'moto',
+    name: '二輪專區',
+    sort: 6,
+    screenArea: 'category'
+  }, {
+    id: 18306,
+    slug: 'expo',
+    name: '全球車展',
+    sort: 7,
+    screenArea: 'category'
+  }, {
+    id: 11,
+    slug: 'racing',
+    name: '全球賽事',
+    sort: 8,
+    screenArea: 'category'
+  }, {
+    id: 18308,
+    slug: 'gifts',
+    name: '生活精品',
+    sort: 9,
+    screenArea: 'category'
+  }, {
+    id: 9981,
+    slug: 'promotion',
+    name: '優惠快訊',
+    sort: 10,
+    screenArea: 'category'
+  }]
+}, {
+  id: 12470,
+  slug: 'testdrive',
+  name: '試駕報導',
+  sort: 3,
+  screenArea: 'category',
+  subs: []
+}, {
+  id: 6292,
+  slug: 'feature-story',
+  name: '國王企劃',
+  sort: 4,
+  screenArea: 'category',
+  subs: [{
+    id: 2917,
+    slug: 'class',
+    name: '國王學苑',
+    sort: 1,
+    screenArea: 'category'
+  }, {
+    id: 6736,
+    slug: 'report',
+    name: '國王報導',
+    sort: 2,
+    screenArea: 'category'
+  }]
+}, {
+  id: 0,
+  slug: 'askQAIfWantToBuyCar',
+  name: '買車請借問',
+  sort: 5,
+  screenArea: 'fqa',
+  subs: []
+}, {
+  id: 0,
+  slug: 'ranking',
+  name: '熱門排行榜',
+  sort: 6,
+  screenArea: 'ranking',
+  subs: []
+}, {
+  id: 24175,
+  slug: 'greencar',
+  name: '電動世代',
+  sort: 7,
+  screenArea: 'category',
+  subs: []
+}, {
+  id: 20934,
+  slug: 'videos',
+  name: '國王影音',
+  sort: 8,
+  screenArea: 'category',
+  subs: []
+}, {
+  id: 76,
+  slug: 'tuning',
+  name: '汽車改裝',
+  sort: 9,
+  screenArea: 'category',
+  subs: []
+}, {
+  id: 0,
+  slug: 'wallpaper',
+  name: '桌布下載',
+  sort: 10,
+  screenArea: 'wallpaper',
+  subs: [{
+    id: 0,
+    slug: 'showgirl',
+    name: '國王女郎',
+    sort: 1,
+    screenArea: 'wallpaper'
+  }]
+}, {
+  id: 0,
+  slug: 'membercenter',
+  name: '會員中心',
+  sort: 11,
+  screenArea: 'member',
+  subs: [{
+    id: 0,
+    slug: 'setfavor',
+    name: '編輯興趣分類',
+    sort: 1,
+    screenArea: 'category'
+  }]
+}, {
+  id: 0,
+  slug: 'connectus',
+  name: '聯絡我們',
+  sort: 12,
+  screenArea: 'connectus',
+  subs: []
+}]
