@@ -172,7 +172,7 @@ class _BrandFirstLevelItem extends React.PureComponent<_BrandFirstLevelItemProps
           <TouchableHighlight
             underlayColor="transparent"
             onPress={() => {
-              this.props.screenProps.dispatch({type: 'SetCateFromSideMenu', data: item.slug});
+              this.setIsShowSubItem(!this.state.isShowSubItem);
             }}
             style={{flex: 0.8}}>
             <View

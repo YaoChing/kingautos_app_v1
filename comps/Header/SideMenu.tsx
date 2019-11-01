@@ -206,6 +206,8 @@ class _CategoryFirstLevelItem extends React.PureComponent<_CategoryFirstLevelIte
 export interface _CategoryScopeProps extends GProps {}
 
 const _CategoryScope = (props: _CategoryScopeProps) => {
+  if(!props.screenProps.state.isShowSideMenu) return null;
+
   let categoriesData = [];
 
   for(let key in Categories) {

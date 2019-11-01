@@ -26,7 +26,8 @@ export default (props: GProps) => {
       sideMenuPos,
       {
         toValue: {x: 0, y: 0},
-        duration: 300
+        duration: 100,
+        useNativeDriver: true
       }
     ).start();
   }
@@ -36,7 +37,8 @@ export default (props: GProps) => {
       sideMenuPos,
       {
         toValue: {x: 0 - width, y: 0},
-        duration: 0
+        duration: 0,
+        useNativeDriver: true
       }
     ).start();
   }
@@ -46,7 +48,8 @@ export default (props: GProps) => {
       sideBrandPos,
       {
         toValue: {x: 0, y: 0},
-        duration: 300
+        duration: 100,
+        useNativeDriver: true
       }
     ).start();
   }
@@ -56,7 +59,8 @@ export default (props: GProps) => {
       sideBrandPos,
       {
         toValue: {x: width, y: 0},
-        duration: 0
+        duration: 0,
+        useNativeDriver: true
       }
     ).start();
   }
