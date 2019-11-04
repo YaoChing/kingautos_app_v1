@@ -1,8 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {
   SafeAreaView,
-  View,
-  Text
+  View
 } from 'react-native';
 
 import Header from '../Header';
@@ -11,6 +10,7 @@ import Category from '../Category';
 import Brand from '../Brand';
 import Tag from '../Tag';
 import ConnectUs from '../ConnectUs';
+import Search from '../Search';
 
 export interface GProps {
   screenProps: {state: any, dispatch: any}
@@ -38,6 +38,9 @@ export default (props: GProps) => {
         break;
       case 'connectusArea':
         scope = <ConnectUs {...props} />;
+        break;
+      case 'searchArea':
+        scope = <Search {...props} />;
         break;
       default: 
         scope = <View style={{flex: 1}} />;

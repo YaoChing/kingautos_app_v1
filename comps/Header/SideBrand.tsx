@@ -52,6 +52,7 @@ class _BrandSecondLevelItem extends React.PureComponent<_BrandSecondLevelItemPro
 
   render() {
     let item: any = this.props.secondLevelItem;
+    let nowCate = this.props.screenProps.state.nowCate;
 
     return (
       <TouchableHighlight
@@ -61,9 +62,9 @@ class _BrandSecondLevelItem extends React.PureComponent<_BrandSecondLevelItemPro
         }} 
         style={{flex: 0, height: 50}}>
         <View
-          style={{width:　width * 0.8 * 0.8 - 20, paddingHorizontal: 20, paddingVertical: 10}}>
+          style={{width:　width * 0.8 * 0.8 - 20, paddingHorizontal: 20, paddingVertical: 10, backgroundColor: (nowCate !== item.name) ? '#ffffff' : '#b71d29'}}>
           <Text
-            style={{fontSize: 16}}>{item.name}</Text>
+            style={{fontSize: 16, color: (nowCate !== item.name) ? '#222222' : '#ffffff'}}>{item.name}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -86,6 +87,7 @@ const _BrandSecondLevelData = (props: _BrandSecondLevelDataProps) => {
       showsVerticalScrollIndicator={false}
       keyExtractor={(item, index) => index.toString()}
       extraData={props.secondLevelData}
+      removeClippedSubviews={true}
       renderItem={({item, index}) => {
         return <_BrandSecondLevelItem secondLevelItem={item} {...props} />;
       }} />
@@ -205,6 +207,8 @@ class _BrandFirstLevelItem extends React.PureComponent<_BrandFirstLevelItemProps
 }
 
 export default (props: GProps) => {
+  if(!props.screenProps.state.isShowSideBrand) return null;
+
   const _switchShow = () => {
     props.screenProps.dispatch({
       type: 'SetIsShowSideBrand', 
@@ -250,6 +254,7 @@ export default (props: GProps) => {
             data={Brands}
             initialNumToRender={1}
             showsVerticalScrollIndicator={false}
+            removeClippedSubviews={true}
             keyExtractor={(item, index) => index.toString()}
             extraData={Brands}
             ItemSeparatorComponent={() => {

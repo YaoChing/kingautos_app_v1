@@ -83,6 +83,7 @@ const _CategorySecondLevelData = (props: _CategorySecondLevelDataProps) => {
       data={props.secondLevelData}
       showsVerticalScrollIndicator={false}
       keyExtractor={(item, index) => index.toString()}
+      removeClippedSubviews={true}
       renderItem={({item, index}) => {
         return <_CategorySecondLevelItem secondLevelItem={item} {...props} />;
       }} />
@@ -224,6 +225,7 @@ const _CategoryScope = (props: _CategoryScopeProps) => {
       showsVerticalScrollIndicator={false}
       keyExtractor={(item, index) => index.toString()}
       extraData={categoriesData}
+      removeClippedSubviews={true}
       ItemSeparatorComponent={() => {
         return (
           <View 
@@ -238,6 +240,8 @@ const _CategoryScope = (props: _CategoryScopeProps) => {
 }
 
 export default (props: GProps) => {
+  if(!props.screenProps.state.isShowSideMenu) return null;
+  
   const _switchShow = () => {
     props.screenProps.dispatch({
       type: 'SetIsShowSideMenu', 
@@ -278,6 +282,7 @@ export default (props: GProps) => {
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => index.toString()}
           initialNumToRender={1}
+          removeClippedSubviews={true}
           renderItem={({item, index}) => {
             return (
               <>

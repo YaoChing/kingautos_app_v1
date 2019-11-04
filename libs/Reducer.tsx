@@ -1,6 +1,7 @@
 export const initState = {
   isShowSideMenu: false,
   isShowSideBrand: false,
+  isShowSearch: false,
   nowCate: 'all',
   nowArea: 'categoryArea'
 };
@@ -13,7 +14,7 @@ export const initFunction = (state: any, action: {type: string, data: any}) => {
 
     // 下側選單
     case 'SetCateFromFooter':
-        return Object.assign({}, state, {nowCate: action.data, nowArea: 'categoryArea'});
+      return Object.assign({}, state, {nowCate: action.data, nowArea: 'categoryArea'});
     
     // 左側選單
     case 'SetTagFromSideMenu':
@@ -22,12 +23,18 @@ export const initFunction = (state: any, action: {type: string, data: any}) => {
       return Object.assign({}, state, {nowCate: action.data, nowArea: 'categoryArea', isShowSideMenu: false});
     case 'SetAreaFromSideMenu':
         return Object.assign({}, state, {nowCate: action.data, nowArea: action.data + 'Area', isShowSideMenu: false});
+    
+    // 搜尋選單
+    case 'SetCateFromSearch':
+      return Object.assign({}, state, {nowCate: action.data, nowArea: 'searchArea', isShowSearch: false});
 
     // 設定左右側選單狀態
     case 'SetIsShowSideMenu':
-      return Object.assign({}, state, {isShowSideMenu: action.data});
+      return Object.assign({}, state, {isShowSideMenu: action.data, isShowSearch: false});
     case 'SetIsShowSideBrand':
         return Object.assign({}, state, {isShowSideBrand: action.data});
+    case 'SetIsShowSearch':
+      return Object.assign({}, state, {isShowSearch: action.data});
 
     case '':
       return Object.assign({}, state, {});
