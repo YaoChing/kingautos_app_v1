@@ -1,12 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
   Dimensions,
   TouchableHighlight,
   FlatList,
-  Animated
+  Animated,
+  ScrollView
 } from 'react-native';
+import { Spinner } from 'native-base';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
 import Categories from '../../configs/Categories';
@@ -71,12 +73,12 @@ class _CategorySecondLevelItem extends React.PureComponent<_CategorySecondLevelI
 }
 
 export interface _CategorySecondLevelDataProps extends GProps {
-  secondLevelData: any
+  secondLevelData: any,
+  isShowSubItem: boolean
 }
 
 const _CategorySecondLevelData = (props: _CategorySecondLevelDataProps) => {
-  if(!props.screenProps.state.isShowSideMenu) return null;
-  if(props.secondLevelData.length <= 0) return null;
+  if(!props.isShowSubItem || props.secondLevelData.length <= 0) return null;
 
   return (
     <FlatList
@@ -160,8 +162,6 @@ class _CategoryFirstLevelItem extends React.PureComponent<_CategoryFirstLevelIte
   }
 
   render() {
-    if(!this.props.screenProps.state.isShowSideMenu) return null;
-    
     let item = this.props.firstLevelItem;
     let nowCate = this.props.screenProps.state.nowCate;
 
@@ -196,7 +196,7 @@ class _CategoryFirstLevelItem extends React.PureComponent<_CategoryFirstLevelIte
         {(item.subs.length > 0) ? (
           <Animated.View
             style={{height: this.state.subView}}>
-            <_CategorySecondLevelData secondLevelData={item.subs} {...this.props} />
+            <_CategorySecondLevelData secondLevelData={item.subs} isShowSubItem={this.state.isShowSubItem} {...this.props} />
           </Animated.View>
         ) : null}
       </>
@@ -207,8 +207,6 @@ class _CategoryFirstLevelItem extends React.PureComponent<_CategoryFirstLevelIte
 export interface _CategoryScopeProps extends GProps {}
 
 const _CategoryScope = (props: _CategoryScopeProps) => {
-  if(!props.screenProps.state.isShowSideMenu) return null;
-
   let categoriesData = [];
 
   for(let key in Categories) {
@@ -220,28 +218,15 @@ const _CategoryScope = (props: _CategoryScopeProps) => {
   }
 
   return (
-    <FlatList
-      data={categoriesData}
-      showsVerticalScrollIndicator={false}
-      keyExtractor={(item, index) => index.toString()}
-      extraData={categoriesData}
-      removeClippedSubviews={true}
-      ItemSeparatorComponent={() => {
-        return (
-          <View 
-            style={{width: Math.ceil(width * 0.8), height: 1, backgroundColor: '#b8b8b8'}} />
-        )
-      }}
-      renderItem={({item, index}) => {
-        return <_CategoryFirstLevelItem firstLevelItem={item} {...props} />;
-      }}
-    />
+    <>
+      {categoriesData.map((value) => {
+        return <_CategoryFirstLevelItem firstLevelItem={value} {...props} />;
+      })}
+    </>
   )
 }
 
 export default (props: GProps) => {
-  if(!props.screenProps.state.isShowSideMenu) return null;
-  
   const _switchShow = () => {
     props.screenProps.dispatch({
       type: 'SetIsShowSideMenu', 
@@ -276,49 +261,36 @@ export default (props: GProps) => {
               style={{color: '#c2c2c2', fontSize: 10}}>關閉</Text>
           </View>
         </TouchableHighlight>
-        <FlatList
-          style={{flex: 1, paddingHorizontal: 10, marginBottom: 30}}
-          data={[1]}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
-          initialNumToRender={1}
-          removeClippedSubviews={true}
-          renderItem={({item, index}) => {
-            return (
-              <>
-                <View
-                  style={{flex: 0, flexDirection: 'row', alignItems: 'center', paddingVertical: 15}}>
-                  <Icon name="user" size={45} color="#222222" />
-                  <Text
-                    style={{fontSize: 18}}>會員登入</Text>
-                </View>
-                <_CategoryScope {...props}/>
-                <View 
-                  style={{width: Math.ceil(width * 0.8), height: 1, backgroundColor: '#b8b8b8'}} />
-                <View
-                  style={{flex: 0, flexDirection: 'row', paddingVertical: 15, paddingLeft: 5, borderBottomColor: '#b8b8b8', borderBottomWidth: 1}}>
-                  <View
-                    style={{flex: 1, justifyContent: 'center'}}>
-                    <Text
-                    style={{fontSize: 16}}>會員專區</Text>
-                  </View>
-                  <View
-                    style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
-                    <Text
-                      style={{fontSize: 16}}>登入</Text>
-                  </View>
-                </View>
-                <TouchableHighlight
-                  underlayColor="transparent"
-                  onPress={() => props.screenProps.dispatch({type: 'SetAreaFromSideMenu', data: 'connectus'})}
-                  style={{flex: 1, justifyContent: 'center', paddingVertical: 15, paddingLeft: 5, backgroundColor: (props.screenProps.state.nowCate !== 'connectus') ? '#ffffff' : '#b71d29'}}>
-                  <Text
-                    style={{fontSize: 16, color: (props.screenProps.state.nowCate !== 'connectus') ? '#222222' : '#ffffff'}}>聯絡我們</Text>
-                </TouchableHighlight>
-              </>
-            );
-          }}
-        />
+        <ScrollView
+          style={{flex: 1, paddingHorizontal: 10, marginBottom: 30}}>
+          <View
+            style={{flex: 0, flexDirection: 'row', alignItems: 'center', paddingVertical: 15}}>
+            <Icon name="user" size={45} color="#222222" />
+            <Text
+              style={{fontSize: 18}}>會員登入</Text>
+          </View>
+          <_CategoryScope {...props}/>
+          <View
+            style={{flex: 0, flexDirection: 'row', paddingVertical: 15, paddingLeft: 5}}>
+            <View
+              style={{flex: 1, justifyContent: 'center'}}>
+              <Text
+              style={{fontSize: 16}}>會員專區</Text>
+            </View>
+            <View
+              style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
+              <Text
+                style={{fontSize: 16}}>登入</Text>
+            </View>
+          </View>
+          <TouchableHighlight
+            underlayColor="transparent"
+            onPress={() => props.screenProps.dispatch({type: 'SetAreaFromSideMenu', data: 'connectus'})}
+            style={{flex: 1, justifyContent: 'center', paddingVertical: 15, paddingLeft: 5, backgroundColor: (props.screenProps.state.nowCate !== 'connectus') ? '#ffffff' : '#b71d29'}}>
+            <Text
+              style={{fontSize: 16, color: (props.screenProps.state.nowCate !== 'connectus') ? '#222222' : '#ffffff'}}>聯絡我們</Text>
+          </TouchableHighlight>
+        </ScrollView>
       </View>
     </>
   );

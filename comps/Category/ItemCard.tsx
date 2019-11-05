@@ -128,19 +128,19 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
               style={{flex: 0.5, justifyContent: 'center'}}>
               <Text
                 numberOfLines={1}
-                style={{fontSize: 16}}>{this.state.nowCateName}</Text>
+                style={{fontSize: 14}}>{this.state.nowCateName}</Text>
             </View>
             <View
               style={{flex: 1, justifyContent: 'center', marginVertical: 5}}>
               <Text
                 numberOfLines={2}
-                style={{fontSize: 19}}>{this.state.item.title}</Text>
+                style={{fontSize: 16}}>{this.state.item.title}</Text>
             </View>
             <View
               style={{flex: 0.5, justifyContent: 'center'}}>
               <Text
                 numberOfLines={1}
-                style={{fontSize: 16}}>{this.state.item.post_date}</Text>
+                style={{fontSize: 14}}>{this.state.item.post_date}</Text>
             </View>
           </View>
         </View>

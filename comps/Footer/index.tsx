@@ -15,7 +15,7 @@ export interface GProps {
 export default (props: GProps) => {
   return (
     <View
-      style={{flex: 0.07, backgroundColor: '#222222'}}>
+      style={{flex: 0.1, backgroundColor: '#222222'}}>
       <View
         style={{flex: 1, flexDirection: 'row'}}>
         <TouchableHighlight

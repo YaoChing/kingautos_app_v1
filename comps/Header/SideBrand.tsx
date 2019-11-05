@@ -1,11 +1,12 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import {
   View,
   Text,
   Dimensions,
   TouchableHighlight,
   FlatList,
-  Animated
+  Animated,
+  ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
@@ -77,20 +78,14 @@ export interface _BrandSecondLevelDataProps extends GProps {
 }
 
 const _BrandSecondLevelData = (props: _BrandSecondLevelDataProps) => {
-  if(!props.screenProps.state.isShowSideBrand) return null;
-  if(!props.isShowSubItem) return null;
-  if(props.secondLevelData.length <= 0) return null;
+  if(!props.isShowSubItem || props.secondLevelData.length <= 0) return null;
 
   return (
-    <FlatList
-      data={props.secondLevelData}
-      showsVerticalScrollIndicator={false}
-      keyExtractor={(item, index) => index.toString()}
-      extraData={props.secondLevelData}
-      removeClippedSubviews={true}
-      renderItem={({item, index}) => {
-        return <_BrandSecondLevelItem secondLevelItem={item} {...props} />;
-      }} />
+    <ScrollView>
+      {props.secondLevelData.map((value: any) => {
+        return <_BrandSecondLevelItem secondLevelItem={value} {...props} />;
+      })}
+    </ScrollView>
   );
 }
 
@@ -119,12 +114,16 @@ class _BrandFirstLevelItem extends React.PureComponent<_BrandFirstLevelItemProps
   }
 
   getSnapshotBeforeUpdate(prevProps: any, prevState: any) {
+    if(!this.props.screenProps.state.isShowSideBrand && this.state.isShowSubItem) return 'closeItems'; 
+
     return null;
   }
 
   componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
     if (snapshot !== null) {
-      //
+      if(snapshot === 'closeItems') {
+        this.setState({isShowSubItem: false}, () => this._hideMenu());
+      }
     }
   }
 
@@ -163,8 +162,6 @@ class _BrandFirstLevelItem extends React.PureComponent<_BrandFirstLevelItemProps
   }
 
   render() {
-    if(!this.props.screenProps.state.isShowSideBrand) return null;
-    
     let item = this.props.firstLevelItem;
 
     return (
@@ -207,8 +204,6 @@ class _BrandFirstLevelItem extends React.PureComponent<_BrandFirstLevelItemProps
 }
 
 export default (props: GProps) => {
-  if(!props.screenProps.state.isShowSideBrand) return null;
-
   const _switchShow = () => {
     props.screenProps.dispatch({
       type: 'SetIsShowSideBrand', 
@@ -246,28 +241,12 @@ export default (props: GProps) => {
               style={{color: '#c2c2c2', fontSize: 10}}>關閉</Text>
           </View>
         </TouchableHighlight>
-        <View
-          style={{flex: 1}}>
-          {/* 列表區塊 */}
-          <FlatList 
-            style={{paddingHorizontal: 10, marginBottom: 30}}
-            data={Brands}
-            initialNumToRender={1}
-            showsVerticalScrollIndicator={false}
-            removeClippedSubviews={true}
-            keyExtractor={(item, index) => index.toString()}
-            extraData={Brands}
-            ItemSeparatorComponent={() => {
-              return (
-                <View 
-                  style={{width: Math.ceil(width * 0.8), height: 1, backgroundColor: '#b8b8b8'}} />
-              )
-            }}
-            renderItem={({item, index}) => {
-              return <_BrandFirstLevelItem firstLevelItem={item} {...props} />;
-            }}
-          />
-        </View>
+        <ScrollView
+          style={{flex: 1, paddingHorizontal: 10, marginBottom: 30}}>
+          {Brands.map((value) => {
+            return <_BrandFirstLevelItem firstLevelItem={value} {...props} />;
+          })}
+        </ScrollView>
       </View>
     </View>
   );

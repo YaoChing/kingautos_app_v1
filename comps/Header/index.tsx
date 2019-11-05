@@ -140,12 +140,13 @@ export default (props: GProps) => {
   return (
     <Fragment>
       <View
-        style={{flex: 0.07, backgroundColor: '#222222'}}>
+        style={{flex: 0.1, backgroundColor: '#222222'}}>
         <View
           style={{flex: 1, flexDirection: 'row'}}>
           <TouchableHighlight
             underlayColor={'transparent'}
             onPress={() => {
+              console.log(111);
               props.screenProps.dispatch({type: 'SetIsShowSideMenu', data: !props.screenProps.state.isShowSideMenu});
             }}
             style={{flex: 0.2}}>
@@ -179,15 +180,15 @@ export default (props: GProps) => {
           style={{
             position: 'absolute', 
             width: width, 
-            height: height * 0.07,
+            height: height * 0.1,
             zIndex: 999,
             bottom: 0,
-            transform: [{translateX: searchHotKeywordBtnPos.x}],
+            transform: [{translateX: searchHotKeywordBtnPos.x}]
           }}>
           <View
-            style={{position: 'absolute', width, right: 0, backgroundColor: '#ffffff'}}>
+            style={{position: 'absolute', width, height: height * 0.1, right: 0, backgroundColor: '#ffffff'}}>
             <View
-              style={{flex: 1, flexDirection: 'row', marginHorizontal: 20, paddingVertical: 5}}>
+              style={{flex: 1, flexDirection: 'row', marginHorizontal: 10, paddingVertical: 5}}>
               <View
                 style={{flex: 1, justifyContent: 'center'}}>
                 <TextInput 
@@ -235,7 +236,7 @@ export default (props: GProps) => {
         style={{
           position: 'absolute', 
           width, 
-          height: height * 0.91,
+          height: height * 0.88,
           zIndex: 999,
           bottom: 0,
           transform: [{translateY: searchHotKeywordListPos.y}]
