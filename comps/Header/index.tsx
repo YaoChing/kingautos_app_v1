@@ -236,7 +236,7 @@ export default (props: GProps) => {
         style={{
           position: 'absolute', 
           width, 
-          height: height * 0.88,
+          height: height * 0.9,
           zIndex: 999,
           bottom: 0,
           transform: [{translateY: searchHotKeywordListPos.y}]

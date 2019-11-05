@@ -63,7 +63,7 @@ class _CategorySecondLevelItem extends React.PureComponent<_CategorySecondLevelI
         }} 
         style={{flex: 0, height: 50}}>
         <View
-          style={{width:　width * 0.8 * 0.8 - 20, paddingHorizontal: 20, paddingVertical: 10, backgroundColor: (nowCate !== item.slug) ? '#ffffff' : '#b71d29'}}>
+          style={{width:　width * 0.8 * 0.8 - 20, height: 50, paddingHorizontal: 20, justifyContent: 'center', backgroundColor: (nowCate !== item.slug) ? '#ffffff' : '#b71d29'}}>
           <Text
             style={{fontSize: 16, color: (nowCate !== item.slug) ? '#222222' : '#ffffff'}}>{item.name}</Text>
         </View>
@@ -81,20 +81,18 @@ const _CategorySecondLevelData = (props: _CategorySecondLevelDataProps) => {
   if(!props.isShowSubItem || props.secondLevelData.length <= 0) return null;
 
   return (
-    <FlatList
-      data={props.secondLevelData}
-      showsVerticalScrollIndicator={false}
-      keyExtractor={(item, index) => index.toString()}
-      removeClippedSubviews={true}
-      renderItem={({item, index}) => {
-        return <_CategorySecondLevelItem secondLevelItem={item} {...props} />;
-      }} />
+    <ScrollView>
+      {props.secondLevelData.map((value: any, index: number) => {
+        return <_CategorySecondLevelItem secondLevelItem={value} {...props} />;
+      })}
+    </ScrollView>
   );
 }
 
 
 export interface _CategoryFirstLevelItemProps extends GProps {
-  firstLevelItem: any
+  firstLevelItem: any,
+  findex: number
 }
 export interface _CategoryFirstLevelItemState {
   isShowSubItem: boolean,
@@ -118,12 +116,16 @@ class _CategoryFirstLevelItem extends React.PureComponent<_CategoryFirstLevelIte
   }
 
   getSnapshotBeforeUpdate(prevProps: any, prevState: any) {
+    if(!this.props.screenProps.state.isShowSideMenu && this.state.isShowSubItem) return 'closeItems';
+
     return null;
   }
 
   componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
     if (snapshot !== null) {
-      //
+      if(snapshot === 'closeItems') {
+        this.setState({isShowSubItem: false}, () => this._hideMenu());
+      }
     }
   }
 
@@ -168,7 +170,7 @@ class _CategoryFirstLevelItem extends React.PureComponent<_CategoryFirstLevelIte
     return (
       <>
         <View
-          style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+          style={{flex: 1, flexDirection: 'row', alignItems: 'center', borderTopColor: '#c2c2c2', borderTopWidth: (this.props.findex > 0) ? 1 : 0}}>
           <TouchableHighlight
             underlayColor="transparent"
             onPress={() => {
@@ -219,8 +221,8 @@ const _CategoryScope = (props: _CategoryScopeProps) => {
 
   return (
     <>
-      {categoriesData.map((value) => {
-        return <_CategoryFirstLevelItem firstLevelItem={value} {...props} />;
+      {categoriesData.map((value, index) => {
+        return <_CategoryFirstLevelItem firstLevelItem={value} findex={index} {...props} />;
       })}
     </>
   )
@@ -271,7 +273,7 @@ export default (props: GProps) => {
           </View>
           <_CategoryScope {...props}/>
           <View
-            style={{flex: 0, flexDirection: 'row', paddingVertical: 15, paddingLeft: 5}}>
+            style={{flex: 0, flexDirection: 'row', paddingVertical: 15, paddingLeft: 5, borderTopColor: '#c2c2c2', borderTopWidth: 1}}>
             <View
               style={{flex: 1, justifyContent: 'center'}}>
               <Text
@@ -286,7 +288,7 @@ export default (props: GProps) => {
           <TouchableHighlight
             underlayColor="transparent"
             onPress={() => props.screenProps.dispatch({type: 'SetAreaFromSideMenu', data: 'connectus'})}
-            style={{flex: 1, justifyContent: 'center', paddingVertical: 15, paddingLeft: 5, backgroundColor: (props.screenProps.state.nowCate !== 'connectus') ? '#ffffff' : '#b71d29'}}>
+            style={{flex: 1, justifyContent: 'center', paddingVertical: 15, paddingLeft: 5, backgroundColor: (props.screenProps.state.nowCate !== 'connectus') ? '#ffffff' : '#b71d29', borderTopColor: '#c2c2c2', borderTopWidth: 1}}>
             <Text
               style={{fontSize: 16, color: (props.screenProps.state.nowCate !== 'connectus') ? '#222222' : '#ffffff'}}>聯絡我們</Text>
           </TouchableHighlight>

@@ -63,7 +63,7 @@ class _BrandSecondLevelItem extends React.PureComponent<_BrandSecondLevelItemPro
         }} 
         style={{flex: 0, height: 50}}>
         <View
-          style={{width:　width * 0.8 * 0.8 - 20, paddingHorizontal: 20, paddingVertical: 10, backgroundColor: (nowCate !== item.name) ? '#ffffff' : '#b71d29'}}>
+          style={{width:　width * 0.8 * 0.8 - 20, height: 50, paddingHorizontal: 20, justifyContent: 'center',backgroundColor: (nowCate !== item.name) ? '#ffffff' : '#b71d29'}}>
           <Text
             style={{fontSize: 16, color: (nowCate !== item.name) ? '#222222' : '#ffffff'}}>{item.name}</Text>
         </View>
@@ -81,8 +81,9 @@ const _BrandSecondLevelData = (props: _BrandSecondLevelDataProps) => {
   if(!props.isShowSubItem || props.secondLevelData.length <= 0) return null;
 
   return (
-    <ScrollView>
-      {props.secondLevelData.map((value: any) => {
+    <ScrollView
+      removeClippedSubviews={true} >
+      {props.secondLevelData.map((value: any, index: number) => {
         return <_BrandSecondLevelItem secondLevelItem={value} {...props} />;
       })}
     </ScrollView>
@@ -90,7 +91,8 @@ const _BrandSecondLevelData = (props: _BrandSecondLevelDataProps) => {
 }
 
 export interface _BrandFirstLevelItemProps extends GProps {
-  firstLevelItem: any
+  firstLevelItem: any,
+  findex: number
 }
 export interface _BrandFirstLevelItemState {
   isShowSubItem: boolean,
@@ -167,7 +169,7 @@ class _BrandFirstLevelItem extends React.PureComponent<_BrandFirstLevelItemProps
     return (
       <>
         <View
-          style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+          style={{flex: 1, flexDirection: 'row', alignItems: 'center', borderTopColor: '#c2c2c2', borderTopWidth: (this.props.findex > 0) ? 1 : 0}}>
           <TouchableHighlight
             underlayColor="transparent"
             onPress={() => {
@@ -242,9 +244,10 @@ export default (props: GProps) => {
           </View>
         </TouchableHighlight>
         <ScrollView
+          removeClippedSubviews={true}
           style={{flex: 1, paddingHorizontal: 10, marginBottom: 30}}>
-          {Brands.map((value) => {
-            return <_BrandFirstLevelItem firstLevelItem={value} {...props} />;
+          {Brands.map((value, index) => {
+            return <_BrandFirstLevelItem firstLevelItem={value} findex={index} {...props} />;
           })}
         </ScrollView>
       </View>
