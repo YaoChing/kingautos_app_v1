@@ -20,7 +20,8 @@ export interface ItemCardProps extends GProps {
   item: any[],
   nowIndex: number,
   totalCount: number,
-  showSpinner: boolean
+  showSpinner: boolean,
+  renewName: string
 }
 export interface ItemCardState {
   item: any,
@@ -77,7 +78,7 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
 
       this.setState({
         item,
-        nowCateName,
+        nowCateName: (!this.props.renewName) ? nowCateName : this.props.renewName,
         itemWidth,
         smallWidth,
         srcSmallHeight,
@@ -125,22 +126,25 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
           <View
             style={{flex: 1, flexDirection: 'column'}}>
             <View
-              style={{flex: 0.5, justifyContent: 'center'}}>
-              <Text
-                numberOfLines={1}
-                style={{fontSize: 14}}>{this.state.nowCateName}</Text>
-            </View>
-            <View
               style={{flex: 1, justifyContent: 'center', marginVertical: 5}}>
               <Text
                 numberOfLines={2}
                 style={{fontSize: 16}}>{this.state.item.title}</Text>
             </View>
             <View
-              style={{flex: 0.5, justifyContent: 'center'}}>
-              <Text
-                numberOfLines={1}
-                style={{fontSize: 14}}>{this.state.item.post_date}</Text>
+              style={{flex: 0.5, flexDirection: 'row'}}>
+              <View
+                style={{flex: 1, justifyContent: 'center'}}>
+                <Text
+                  numberOfLines={1}
+                  style={{fontSize: 14}}>{this.state.nowCateName}</Text>
+              </View>
+              <View
+                style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end'}}>
+                <Text
+                  numberOfLines={1}
+                  style={{fontSize: 14}}>{this.state.item.post_date}</Text>
+              </View>
             </View>
           </View>
         </View>

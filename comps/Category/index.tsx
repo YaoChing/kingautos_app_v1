@@ -12,7 +12,6 @@ import TotalCategories from '../../configs/TotalCategories';
 
 import ItemCard from './ItemCard';
 
-
 export interface GProps {
   screenProps: {state: any, dispatch: any}
 };
@@ -87,8 +86,7 @@ export default (props: GProps) => {
         )
       }}
       renderItem={({item, index}) => {
-        return <ItemCard item={item} nowIndex={index} totalCount={cateData.data.length} showSpinner={nowPage < cateData.totalPage} {...props} />;
-      }}
-      />
+        return <ItemCard item={item} nowIndex={index} totalCount={cateData.data.length} showSpinner={nowPage < cateData.totalPage} renewName={''} {...props} />;
+      }} />
   );
 }

@@ -26,6 +26,7 @@ export default (props: GProps) => {
   let [sideBrandPos, setSideBrandPos] = useState(new Animated.ValueXY({x: width, y: 0}));
   let [searchHotKeywordBtnPos, setSearchHotKeywordBtnPos] = useState(new Animated.ValueXY({x: width, y: 0}));
   let [searchHotKeywordListPos, setSearchHotKeywordListPos] = useState(new Animated.ValueXY({x: 0, y: height}));
+  let [searchStr, setSearchStr] = useState('');
 
   const _showSideMenu = () => {
     Animated.timing(
@@ -146,7 +147,6 @@ export default (props: GProps) => {
           <TouchableHighlight
             underlayColor={'transparent'}
             onPress={() => {
-              console.log(111);
               props.screenProps.dispatch({type: 'SetIsShowSideMenu', data: !props.screenProps.state.isShowSideMenu});
             }}
             style={{flex: 0.2}}>
@@ -193,12 +193,28 @@ export default (props: GProps) => {
                 style={{flex: 1, justifyContent: 'center'}}>
                 <TextInput 
                   style={{paddingHorizontal: 25, borderBottomColor: '#222222', borderBottomWidth: 1}}
-                  placeholder='搜尋關鍵字' />
+                  placeholder='搜尋關鍵字'
+                  onChange={(event) => {
+                    let {eventCount, target, text} = event.nativeEvent
+                    setSearchStr(text);
+                  }}
+                  value={searchStr} />
               </View>
-              <View
+              <TouchableHighlight
+                underlayColor={'transparent'}
+                onPress={() => {
+                  Keyboard.dismiss();
+
+                  if(searchStr) {
+                    props.screenProps.dispatch({type: 'SetCateFromSearch', data: searchStr});
+                  }
+                  
+                  props.screenProps.dispatch({type: 'SetIsShowSearch', data: !props.screenProps.state.isShowSearch});
+                  setSearchStr('');
+                }}
                 style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
                 <Icon name="search" size={30} />
-              </View>
+              </TouchableHighlight>
               <TouchableHighlight
                 underlayColor={'transparent'}
                 onPress={() => {

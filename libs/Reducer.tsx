@@ -15,6 +15,8 @@ export const initFunction = (state: any, action: {type: string, data: any}) => {
     // 下側選單
     case 'SetCateFromFooter':
       return Object.assign({}, state, {nowCate: action.data, nowArea: 'categoryArea'});
+    case 'SetTagFromFooter':
+      return Object.assign({}, state, {nowCate: action.data, nowArea: 'tagArea'});
     
     // 左側選單
     case 'SetTagFromSideMenu':

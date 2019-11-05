@@ -20,9 +20,7 @@ export default (props: GProps) => {
         style={{flex: 1, flexDirection: 'row'}}>
         <TouchableHighlight
           underlayColor={'transparent'}
-          onPress={() => {
-            props.screenProps.dispatch({type: 'SetCateFromFooter', data: 'index'});
-          }}
+          onPress={() => props.screenProps.dispatch({type: 'SetCateFromFooter', data: 'index'})}
           style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -46,9 +44,7 @@ export default (props: GProps) => {
         </TouchableHighlight>
         <TouchableHighlight
           underlayColor={'transparent'}
-          onPress={() => {
-            props.screenProps.dispatch({type: 'SetIsShowSideBrand', data: true});
-          }}
+          onPress={() => props.screenProps.dispatch({type: 'SetIsShowSideBrand', data: true})}
           style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -59,7 +55,7 @@ export default (props: GProps) => {
         </TouchableHighlight>
         <TouchableHighlight
           underlayColor={'transparent'}
-          onPress={() => true}
+          onPress={() => props.screenProps.dispatch({type: 'SetTagFromFooter', data: 'BMW'})}
           style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
