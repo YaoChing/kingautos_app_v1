@@ -10,6 +10,7 @@ import {
 } from '../../libs/ConnectApi';
 
 import RegenItemCard from './RegenItemCard';
+import GoToTop from '../Category/GotoTop';
 
 export interface GProps {
   screenProps: {state: any, dispatch: any}
@@ -21,6 +22,7 @@ let _scrollViewHeight = 0;
 export default (props: GProps) => {
   let [nowPage, setNowPage] = useState(1);
   let [cateData, setCateData] = useState({data: [], totalPage: 1});
+  let [showTopBtn, setShowTopBtn] = useState(false);
 
   const _regenData = async (page: number) => {
     let nowCateSlug = props.screenProps.state.nowCate;
@@ -60,53 +62,69 @@ export default (props: GProps) => {
     )
   }
 
+  let _ref: any;
   let _isSend = false;
 
+  const goToTop = () => {
+    _ref.scrollToOffset({ animated: true, offset: 0 });
+  }
+
   return (
-    <FlatList
-      style={{flex: 1}}
-      data={cateData.data}
-      showsVerticalScrollIndicator={false}
-      keyExtractor={(item, index) => index.toString()}
-      removeClippedSubviews={true} 
-      initialNumToRender={10}
-      scrollEventThrottle={160}
-      onContentSizeChange={(w, h) => {
-        _contentHeight = h;
-      }}
-      onLayout={event => {
-        _scrollViewHeight = event.nativeEvent.layout.height;
-      }}
-      onScroll={async (event) => { 
-        let viewHeight = _contentHeight - _scrollViewHeight;
+    <>
+      <FlatList
+        ref={(c) => _ref = c}
+        style={{flex: 1}}
+        data={cateData.data}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
+        removeClippedSubviews={true} 
+        initialNumToRender={10}
+        scrollEventThrottle={160}
+        onContentSizeChange={(w, h) => {
+          _contentHeight = h;
+        }}
+        onLayout={event => {
+          _scrollViewHeight = event.nativeEvent.layout.height;
+        }}
+        onScroll={async (event) => { 
+          let viewHeight = _contentHeight - _scrollViewHeight;
+          let nowScollPos = event.nativeEvent.contentOffset.y;
 
-        if(Math.ceil(viewHeight - 10) <= event.nativeEvent.contentOffset.y) {
-          if(_isSend) return false;
-
-          let tempPage = nowPage + 1;
-
-          if(tempPage > cateData.totalPage) {
-            _isSend = true;
-            return false;
+          if(nowScollPos > 100 && !showTopBtn) {
+            setShowTopBtn(!showTopBtn);
+          } else if(nowScollPos < 100 && showTopBtn) {
+            setShowTopBtn(!showTopBtn);
           }
 
-          let result = await _regenData(tempPage);
+          if(Math.ceil(viewHeight - 10) <= nowScollPos) {
+            if(_isSend) return false;
 
-          result.data = cateData.data.concat(result.data);
+            let tempPage = nowPage + 1;
 
-          setCateData(result);
+            if(tempPage > cateData.totalPage) {
+              _isSend = true;
+              return false;
+            }
 
-          _isSend = true;
-        }
-      }}
-      ItemSeparatorComponent={() => {
-        return (
-          <View 
-            style={{height: 1, backgroundColor: '#b8b8b8'}} />
-        )
-      }}
-      renderItem={({item, index}) => {
-        return <RegenItemCard ritem={item} rnowIndex={index} rtotalCount={cateData.data.length} rshowSpinner={nowPage < cateData.totalPage}  {...props} />
-      }} />
+            let result = await _regenData(tempPage);
+
+            result.data = cateData.data.concat(result.data);
+
+            setCateData(result);
+
+            _isSend = true;
+          }
+        }}
+        ItemSeparatorComponent={() => {
+          return (
+            <View 
+              style={{height: 1, backgroundColor: '#b8b8b8'}} />
+          )
+        }}
+        renderItem={({item, index}) => {
+          return <RegenItemCard ritem={item} rnowIndex={index} rtotalCount={cateData.data.length} rshowSpinner={nowPage < cateData.totalPage}  {...props} />
+        }} />
+      {(showTopBtn) ? <GoToTop goToTop={goToTop} /> : null}
+    </>
   );
 }

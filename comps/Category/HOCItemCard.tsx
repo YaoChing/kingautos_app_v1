@@ -65,7 +65,7 @@ export default (WrappedComponent: any, state: any, fn: () => void) => {
             <View
               style={{flex: 0.05, flexDirection: 'row', padding: 5, marginHorizontal: 10, marginTop: 10, marginBottom: 5, backgroundColor: '', justifyContent: 'center', borderLeftColor: '#b71d29', borderLeftWidth: 8}}>
               <View
-                style={{flex: (breadcrumbIdent.length < 3) ? 0.1 : 0.15}}>
+                style={{flex: (breadcrumbIdent.length < 3) ? 0.15 : 0.2}}>
                 <Text
                   style={{fontSize: 16, color: '#b71d29', fontStyle: 'italic'}}>{breadcrumbIdent}</Text>
               </View>
