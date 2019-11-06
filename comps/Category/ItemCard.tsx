@@ -21,11 +21,9 @@ export interface ItemCardProps extends GProps {
   nowIndex: number,
   totalCount: number,
   showSpinner: boolean,
-  renewName: string
 }
 export interface ItemCardState {
   item: any,
-  nowCateName: string,
   itemWidth: number,
   smallWidth: number,
   srcSmallHeight: number,
@@ -41,7 +39,6 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
 
     this.state = {
       item: {},
-      nowCateName: '',
       itemWidth: 0,
       smallWidth: 0,
       srcSmallHeight: 0,
@@ -65,20 +62,9 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
       let itemWidth = Math.ceil(srcWidth * imgScale);
       let smallWidth = itemWidth * 0.4;
       let smallScale = smallWidth / srcSmallWidth;
-      let nowCateName = '';
-      let nowCateSlug = this.props.screenProps.state.nowCate;
-
-      for(let key in TotalCategories) {
-        let value = TotalCategories[key];
-
-        if(value.slug === nowCateSlug) {
-          nowCateName = value.name;
-        }
-      }
 
       this.setState({
         item,
-        nowCateName: (!this.props.renewName) ? nowCateName : this.props.renewName,
         itemWidth,
         smallWidth,
         srcSmallHeight,
@@ -137,7 +123,7 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
                 style={{flex: 1, justifyContent: 'center'}}>
                 <Text
                   numberOfLines={1}
-                  style={{fontSize: 14}}>{this.state.nowCateName}</Text>
+                  style={{fontSize: 14}}></Text>
               </View>
               <View
                 style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end'}}>

@@ -5,16 +5,16 @@ import {
 } from 'react-native';
 
 export interface GProps {
-  screenProps: {state: any, dispatch: any}
+  screenProps: {state: any, dispatch: any},
+  ritem: any,
+  rnowIndex: number,
+  rtotalCount: number,
+  rshowSpinner: boolean
 };
 
 export interface HOCItemCardProp extends GProps {}
 
 export interface HOCItemCardState {
-  ritem: any,
-  rnowIndex: number,
-  rtotalCount: number,
-  rshowSpinner: boolean,
   componentType: string,
   title: string,
   breadcrumbScope: any
@@ -39,6 +39,9 @@ export default (WrappedComponent: any, state: any, fn: () => void) => {
         let breadcrumbTitle = '';
 
         switch(this.state.componentType) {
+          case 'category':
+            breadcrumbTitle = '分類 ' + this.state.title;
+            break;
           case 'brand':
             breadcrumbTitle = '品牌 ' + this.state.title;
             break;
@@ -52,7 +55,7 @@ export default (WrappedComponent: any, state: any, fn: () => void) => {
             break;
         }
 
-        if(breadcrumbTitle && this.state.rnowIndex === 0) {
+        if(breadcrumbTitle && this.props.rnowIndex === 0) {
           breadcrumbScope = (
             <View
               style={{flex: 0.05, paddingHorizontal: 5, marginHorizontal: 10, marginVertical: 10, backgroundColor: '', justifyContent: 'center', borderLeftColor: '#b71d29', borderLeftWidth: 8}}>
@@ -86,7 +89,7 @@ export default (WrappedComponent: any, state: any, fn: () => void) => {
       return (
         <>
         {this.state.breadcrumbScope}
-        <WrappedComponent item={this.state.ritem} nowIndex={this.state.rnowIndex} totalCount={this.state.rtotalCount} showSpinner={this.state.rshowSpinner} renewName={''} {...this.props}/>
+        <WrappedComponent item={this.props.ritem} nowIndex={this.props.rnowIndex} totalCount={this.props.rtotalCount} showSpinner={this.props.rshowSpinner} {...this.props}/>
         </>
       );
     }

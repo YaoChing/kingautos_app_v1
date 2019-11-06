@@ -10,7 +10,7 @@ import {
 } from '../../libs/ConnectApi';
 import TotalCategories from '../../configs/TotalCategories';
 
-import ItemCard from './ItemCard';
+import RegenItemCard from './RegenItemCard';
 
 export interface GProps {
   screenProps: {state: any, dispatch: any}
@@ -86,7 +86,7 @@ export default (props: GProps) => {
         )
       }}
       renderItem={({item, index}) => {
-        return <ItemCard item={item} nowIndex={index} totalCount={cateData.data.length} showSpinner={nowPage < cateData.totalPage} renewName={''} {...props} />;
+        return <RegenItemCard ritem={item} rnowIndex={index} rtotalCount={cateData.data.length} rshowSpinner={nowPage < cateData.totalPage}  {...props} />
       }} />
   );
 }
