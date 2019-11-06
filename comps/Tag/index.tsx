@@ -47,8 +47,6 @@ export default (props: GProps) => {
 
       let result = await _regenData(1);
 
-      cateData.data = cateData.data.concat(result.data);
-
       setCateData(result);
     })()
   }, [props.screenProps.state.nowCate]);

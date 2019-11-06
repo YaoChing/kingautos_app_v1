@@ -14,21 +14,21 @@ export interface RegenItemCardProps extends GProps {
   rshowSpinner: boolean,
 }
 
-export default (props: RegenItemCardProps) => {
-  useEffect(() => {
-    return () => {}
-  }, []);
+export default class extends React.PureComponent<RegenItemCardProps, {}> {
+  constructor(props: RegenItemCardProps) {
+    super(props);
+  }
 
-  useMemo(() => {}, []);
-
-  let HOCComponent = HOCItemCard(
-    ItemCard,
-    {
-      componentType: 'search',
-      title: props.screenProps.state.nowCate
-    },
-    () => {}
-  )
-
-  return <HOCComponent {...props}/>;
+  render() {
+    let HOCComponent = HOCItemCard(
+      ItemCard,
+      {
+        componentType: 'search',
+        title: this.props.screenProps.state.nowCate
+      },
+      () => {}
+    )
+  
+    return <HOCComponent {...this.props}/>;
+  }
 }

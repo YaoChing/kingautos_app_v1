@@ -37,19 +37,24 @@ export default (WrappedComponent: any, state: any, fn: () => void) => {
       if(this._isMount) {
         let breadcrumbScope = null;
         let breadcrumbTitle = '';
+        let breadcrumbIdent = '';
 
         switch(this.state.componentType) {
           case 'category':
-            breadcrumbTitle = '分類 ' + this.state.title;
+            breadcrumbIdent = '分類';
+            breadcrumbTitle = this.state.title;
             break;
           case 'brand':
-            breadcrumbTitle = '品牌 ' + this.state.title;
+            breadcrumbIdent = '品牌';
+            breadcrumbTitle = this.state.title;
             break;
           case 'tag':
-            breadcrumbTitle = '關鍵字 ' + this.state.title;
+            breadcrumbIdent = '關鍵字';
+            breadcrumbTitle = this.state.title;
             break;
           case 'search':
-            breadcrumbTitle = '搜尋 ' + this.state.title;
+            breadcrumbIdent = '搜尋';
+            breadcrumbTitle = this.state.title;
             break;
           default: 
             break;
@@ -58,9 +63,17 @@ export default (WrappedComponent: any, state: any, fn: () => void) => {
         if(breadcrumbTitle && this.props.rnowIndex === 0) {
           breadcrumbScope = (
             <View
-              style={{flex: 0.05, paddingHorizontal: 5, marginHorizontal: 10, marginVertical: 10, backgroundColor: '', justifyContent: 'center', borderLeftColor: '#b71d29', borderLeftWidth: 8}}>
-              <Text
-                style={{fontSize: 16, color: '#b71d29'}}>{breadcrumbTitle}</Text>
+              style={{flex: 0.05, flexDirection: 'row', padding: 5, marginHorizontal: 10, marginTop: 10, marginBottom: 5, backgroundColor: '', justifyContent: 'center', borderLeftColor: '#b71d29', borderLeftWidth: 8}}>
+              <View
+                style={{flex: (breadcrumbIdent.length < 3) ? 0.1 : 0.15}}>
+                <Text
+                  style={{fontSize: 16, color: '#b71d29', fontStyle: 'italic'}}>{breadcrumbIdent}</Text>
+              </View>
+              <View
+                style={{flex: 1}}>
+                <Text
+                  style={{fontSize: 16, color: '#b71d29', fontWeight: 'bold', textDecorationLine: 'underline'}}>{breadcrumbTitle}</Text>
+              </View>
             </View>
           )
         }

@@ -47,8 +47,6 @@ export default (props: GProps) => {
 
       let result = await _regenData(1);
 
-      result.data = cateData.data.concat(result.data);
-
       setCateData(result);
     })()
   }, [props.screenProps.state.nowCate]);
@@ -88,7 +86,6 @@ export default (props: GProps) => {
           let tempPage = nowPage + 1;
 
           if(tempPage > cateData.totalPage) {
-            _isSend = true;
             return false;
           }
 

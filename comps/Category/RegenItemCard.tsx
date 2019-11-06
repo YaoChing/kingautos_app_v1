@@ -16,32 +16,32 @@ export interface RegenItemCardProps extends GProps {
   rshowSpinner: boolean,
 }
 
-export default (props: RegenItemCardProps) => {
-  useEffect(() => {
-    return () => {}
-  }, []);
-
-  useMemo(() => {}, []);
-
-  let nowCateName = '';
-  let nowCateSlug = props.screenProps.state.nowCate;
-
-  for(let key in TotalCategories) {
-    let value = TotalCategories[key];
-
-    if(value.slug === nowCateSlug) {
-      nowCateName = value.name;
-    }
+export default class extends React.PureComponent<RegenItemCardProps, {}> {
+  constructor(props: RegenItemCardProps) {
+    super(props);
   }
 
-  let HOCComponent = HOCItemCard(
-    ItemCard,
-    {
-      componentType: 'category',
-      title: nowCateName
-    },
-    () => {}
-  )
+  render() {
+    let nowCateName = '';
+    let nowCateSlug = this.props.screenProps.state.nowCate;
 
-  return <HOCComponent {...props}/>;
+    for(let key in TotalCategories) {
+      let value = TotalCategories[key];
+
+      if(value.slug === nowCateSlug) {
+        nowCateName = value.name;
+      }
+    }
+
+    let HOCComponent = HOCItemCard(
+      ItemCard,
+      {
+        componentType: 'category',
+        title: nowCateName
+      },
+      () => {}
+    )
+  
+    return <HOCComponent {...this.props}/>;
+  }
 }

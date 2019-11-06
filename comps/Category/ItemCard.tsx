@@ -104,7 +104,8 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
             style={{flex: 0.8, alignItems: 'center'}}>
             <Image
               style={{width: this.state.smallWidth, height: this.state.srcSmallHeight * this.state.smallScale}}
-              source={{uri: imgStr}} />
+              source={(this.state.imgOnLoad) ? {uri: imgStr} : require('../../files/prepare.jpg')}
+              onError={() => this.setState({imgOnLoad: false})} />
           </View>
           <View
             style={{flex: 1, flexDirection: 'column'}}>
