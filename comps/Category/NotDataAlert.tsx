@@ -8,7 +8,8 @@ export default () => {
   return (
     <View
       style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>查無資料</Text>
+      <Text
+        style={{fontSize: 18, fontWeight: 'bold'}}>查無資料</Text>
     </View>
   )
 }
