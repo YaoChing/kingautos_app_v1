@@ -16,9 +16,13 @@ export interface GProps {
   screenProps: {state: any, dispatch: any}
 };
 
+let _contentHeight = 0;
+let _scrollViewHeight = 0;
+
 export default (props: GProps) => {
   let [nowPage, setNowPage] = useState(1);
   let [cateData, setCateData] = useState({id: 0, data: [], totalPage: 1});
+  let [scrollViewHeight, setScrollViewHeight] = useState(0);
 
   const _regenData = async (page: number) => {
     let nowCateID = 1;
@@ -47,7 +51,7 @@ export default (props: GProps) => {
 
   useEffect(() => {
     return () => {}
-  }, []);
+  });
 
   useMemo(() => {
     (async () => {
@@ -55,7 +59,7 @@ export default (props: GProps) => {
 
       let result = await _regenData(1);
 
-      cateData.data = cateData.data.concat(result.data);
+      result.data = cateData.data.concat(result.data);
 
       setCateData(result);
     })()
@@ -70,6 +74,8 @@ export default (props: GProps) => {
     )
   }
 
+  let _isSend = false;
+
   return (
     <FlatList
       style={{flex: 1}}
@@ -79,6 +85,34 @@ export default (props: GProps) => {
       removeClippedSubviews={true} 
       initialNumToRender={10}
       scrollEventThrottle={160}
+      onContentSizeChange={(w, h) => {
+        _contentHeight = h;
+      }}
+      onLayout={event => {
+        _scrollViewHeight = event.nativeEvent.layout.height;
+      }}
+      onScroll={async (event) => { 
+        let viewHeight = _contentHeight - _scrollViewHeight;
+
+        if(Math.ceil(viewHeight - 10) <= event.nativeEvent.contentOffset.y) {
+          if(_isSend) return false;
+
+          let tempPage = nowPage + 1;
+
+          if(tempPage > cateData.totalPage) {
+            _isSend = true;
+            return false;
+          }
+
+          let result = await _regenData(tempPage);
+
+          result.data = cateData.data.concat(result.data);
+
+          setCateData(result);
+
+          _isSend = true;
+        }
+      }}
       ItemSeparatorComponent={() => {
         return (
           <View 

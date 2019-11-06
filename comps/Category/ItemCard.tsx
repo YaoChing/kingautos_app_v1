@@ -95,7 +95,6 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
 
     let regData = this.state.item.imgStr.match(/\.jpe?g/);
     let imgStr = (regData) ? this.state.item.imgStr.replace(regData[0], '-475x330' + regData[0]) : this.state.item.imgStr;
-    let icon = this.state.imgOnLoad ? require('../../files/prepare.jpg') : {uri: imgStr};
 
     return (
       <>
@@ -105,9 +104,7 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
             style={{flex: 0.8, alignItems: 'center'}}>
             <Image
               style={{width: this.state.smallWidth, height: this.state.srcSmallHeight * this.state.smallScale}}
-              source={icon} 
-              onLoadEnd={() => this.setState({imgOnLoad: false})}
-              resizeMode='contain' />
+              source={{uri: imgStr}} />
           </View>
           <View
             style={{flex: 1, flexDirection: 'column'}}>
