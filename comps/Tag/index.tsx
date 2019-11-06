@@ -11,6 +11,8 @@ import {
 
 import RegenItemCard from './RegenItemCard';
 import GoToTop from '../Category/GotoTop';
+import NotDataAlert from '../Category/NotDataAlert';
+import Waiting from '../Category/Waiting';
 
 export interface GProps {
   screenProps: {state: any, dispatch: any}
@@ -24,9 +26,15 @@ export default (props: GProps) => {
   let [cateData, setCateData] = useState({data: [], totalPage: 1});
   let [showTopBtn, setShowTopBtn] = useState(false);
 
+  let [isNoData, setIsNoData] = useState(false);
+
   const _regenData = async (page: number) => {
     let nowCateSlug = props.screenProps.state.nowCate;
     let result = await _getData(nowCateSlug, page);
+
+    if(result.data.length <= 0) {
+      setIsNoData(true);
+    }
     
     setNowPage(page);
 
@@ -45,6 +53,8 @@ export default (props: GProps) => {
 
   useMemo(() => {
     (async () => {
+      if(isNoData) setIsNoData(false);
+
       setCateData({data: [], totalPage: 1});
 
       let result = await _regenData(1);
@@ -53,12 +63,15 @@ export default (props: GProps) => {
     })()
   }, [props.screenProps.state.nowCate]);
 
-  if(cateData.data.length <= 0) {
+  if(!isNoData && cateData.data.length <= 0) {
     return (
-      <View
-        style={{flex: 1}}>
-        <Spinner color='#b71d29' />
-      </View>
+      <Waiting />
+    )
+  }
+
+  if(isNoData) {
+    return (
+      <NotDataAlert />
     )
   }
 

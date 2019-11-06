@@ -1,12 +1,9 @@
 import React, {useState, useEffect, useMemo} from 'react';
 import {
   View,
-  FlatList,
-  Text,
-  TouchableHighlight
+  FlatList
 } from 'react-native';
 import { Spinner } from 'native-base';
-import Icon from 'react-native-vector-icons/Entypo';
 
 import {
   getCategoryData
@@ -15,6 +12,8 @@ import TotalCategories from '../../configs/TotalCategories';
 
 import RegenItemCard from './RegenItemCard';
 import GoToTop from './GotoTop';
+import NotDataAlert from './NotDataAlert';
+import Waiting from './Waiting';
 
 export interface GProps {
   screenProps: {state: any, dispatch: any}
@@ -27,9 +26,10 @@ export default (props: GProps) => {
   let [nowPage, setNowPage] = useState(1);
   let [cateData, setCateData] = useState({id: 0, data: [], totalPage: 1});
   let [showTopBtn, setShowTopBtn] = useState(false);
+  let [isNoData, setIsNoData] = useState(false);
 
   const _regenData = async (page: number) => {
-    let nowCateID = 1;
+    let nowCateID = 0;
     let nowCateSlug = props.screenProps.state.nowCate;
 
     for(let key in TotalCategories) {
@@ -41,6 +41,10 @@ export default (props: GProps) => {
     }
 
     let result = await _getData(nowCateID, page);
+
+    if(result.data.length <= 0) {
+      setIsNoData(true);
+    }
     
     setNowPage(page);
 
@@ -59,6 +63,8 @@ export default (props: GProps) => {
 
   useMemo(() => {
     (async () => {
+      if(isNoData) setIsNoData(false);
+
       setCateData({id: 0, data: [], totalPage: 1});
 
       let result = await _regenData(1);
@@ -67,12 +73,15 @@ export default (props: GProps) => {
     })()
   }, [props.screenProps.state.nowCate]);
 
-  if(cateData.data.length <= 0) {
+  if(!isNoData && cateData.data.length <= 0) {
     return (
-      <View
-        style={{flex: 1}}>
-        <Spinner color='#b71d29' />
-      </View>
+      <Waiting />
+    )
+  }
+
+  if(isNoData) {
+    return (
+      <NotDataAlert />
     )
   }
 
@@ -119,6 +128,8 @@ export default (props: GProps) => {
               _isSend = true;
               return false;
             }
+
+            if(isNoData) setIsNoData(false);
 
             let result = await _regenData(tempPage);
 
