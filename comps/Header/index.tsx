@@ -85,7 +85,7 @@ export default (props: GProps) => {
       Animated.timing(
         searchHotKeywordListPos,
         {
-          toValue: {x: 0, y: 0},
+          toValue: {x: 0, y: Math.ceil(height - Math.ceil(height * 0.91))},
           duration: 100,
           useNativeDriver: true
         }
@@ -178,15 +178,12 @@ export default (props: GProps) => {
         </View>
         <Animated.View
           style={{
-            position: 'absolute', 
-            width: width, 
-            height: height * 0.1,
+            position: 'absolute',
             zIndex: 999,
-            bottom: 0,
             transform: [{translateX: searchHotKeywordBtnPos.x}]
           }}>
           <View
-            style={{position: 'absolute', width, height: height * 0.1, right: 0, backgroundColor: '#ffffff'}}>
+            style={{width, height: height * 0.1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff'}}>
             <View
               style={{flex: 1, flexDirection: 'row', marginHorizontal: 10, paddingVertical: 5}}>
               <View
@@ -251,13 +248,15 @@ export default (props: GProps) => {
       <Animated.View
         style={{
           position: 'absolute', 
-          width, 
-          height: height * 0.9,
           zIndex: 999,
+          transform: [{translateY: searchHotKeywordListPos.y}],
           bottom: 0,
-          transform: [{translateY: searchHotKeywordListPos.y}]
+          top: 0
         }}>
-        <Search {...props} />
+        <View
+          style={{height: height * 0.9}}>
+          <Search {...props} />
+        </View>
       </Animated.View>
     </Fragment>
   );
