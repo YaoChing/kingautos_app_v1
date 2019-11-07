@@ -3,11 +3,15 @@ import {
   SafeAreaView,
   View,
   Text,
-  TouchableHighlight
+  TouchableHighlight,
+  Dimensions,
+  FlatList
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
 import TotalCategories from '../../configs/TotalCategories';
+
+const {height, width} = Dimensions.get('window');
 
 export interface GProps {
   screenProps: {state: any, dispatch: any},
@@ -46,18 +50,23 @@ export default (props: FavoriteListGProps) => {
             請選擇有興趣的分類，上限八個
           </Text>
         </View>
-        <View
-          style={{flex: 1, padding: 5, flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-          {TotalCategories.map((value) => {
+        <FlatList
+          style={{flex: 1}}
+          numColumns={3}
+          data={TotalCategories}
+          initialNumToRender={16}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({item, index}) => {
             return (
               <View
-                style={{padding: 20, marginHorizontal: 5, marginVertical: 10, borderColor: '#c2c2c2', borderWidth: 1, borderRadius: 10}}>
+                style={{width: width * 0.3, marginHorizontal: 5, marginVertical: 10, borderColor: '#c2c2c2', borderWidth: 1, borderRadius: 10, justifyContent: 'center', alignItems: 'center', paddingVertical: 10}}>
                 <Text
-                  style={{fontSize: 16}}>{value.name}</Text>
+                  style={{fontSize: 16}}>{item.name}</Text>
               </View>
             );
-          })}
-        </View>
+          }}
+        />
         <View
           style={{flex: 0.1, flexDirection: 'row'}}>
           <TouchableHighlight
