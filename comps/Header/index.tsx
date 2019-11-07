@@ -14,11 +14,11 @@ import SideMenu from './SideMenu';
 import SideBrand from './SideBrand';
 import Search from './Search';
 
-
 const {height, width} = Dimensions.get('window');
 
 export interface GProps {
-  screenProps: {state: any, dispatch: any}
+  screenProps: {state: any, dispatch: any},
+  navigation: any
 }
 
 export default (props: GProps) => {
@@ -121,7 +121,7 @@ export default (props: GProps) => {
   return (
     <Fragment>
       <View
-        style={{flex: 0.1, backgroundColor: '#222222'}}>
+        style={{flex: 0.08, backgroundColor: '#222222'}}>
         <View
           style={{flex: 1, flexDirection: 'row'}}>
           <TouchableHighlight
