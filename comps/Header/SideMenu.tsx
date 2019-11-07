@@ -8,7 +8,6 @@ import {
   Animated,
   ScrollView
 } from 'react-native';
-import { Spinner } from 'native-base';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
 import Categories from '../../configs/Categories';
@@ -16,7 +15,8 @@ import Categories from '../../configs/Categories';
 const {height, width} = Dimensions.get('window');
 
 export interface GProps {
-  screenProps: {state: any, dispatch: any}
+  screenProps: {state: any, dispatch: any},
+  navigation: any
 };
 
 export interface _CategorySecondLevelItemProps extends GProps {
@@ -272,19 +272,26 @@ export default (props: GProps) => {
               style={{fontSize: 18}}>會員登入</Text>
           </View>
           <_CategoryScope {...props}/>
-          <View
+          <TouchableHighlight
+            underlayColor="transparent"
+            onPress={() =>{
+              _switchShow();
+              props.navigation.push('FavoriteList');
+            }}
             style={{flex: 0, flexDirection: 'row', paddingVertical: 15, paddingLeft: 5, borderTopColor: '#c2c2c2', borderTopWidth: 1}}>
-            <View
-              style={{flex: 1, justifyContent: 'center'}}>
-              <Text
-              style={{fontSize: 16}}>會員專區</Text>
-            </View>
-            <View
-              style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
-              <Text
-                style={{fontSize: 16}}>登入</Text>
-            </View>
-          </View>
+            <>
+              <View
+                style={{flex: 1, justifyContent: 'center'}}>
+                <Text
+                style={{fontSize: 16}}>會員專區</Text>
+              </View>
+              <View
+                style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
+                <Text
+                  style={{fontSize: 16}}>登入</Text>
+              </View>
+            </>
+          </TouchableHighlight>
           <TouchableHighlight
             underlayColor="transparent"
             onPress={() => props.screenProps.dispatch({type: 'SetAreaFromSideMenu', data: 'connectus'})}

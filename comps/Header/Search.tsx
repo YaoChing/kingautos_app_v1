@@ -103,7 +103,7 @@ export default (props: GProps) => {
     <View
       style={{flex: 1, backgroundColor: '#ffffff'}}>
       <FlatList
-        style={{flex: 1, paddingHorizontal: 20, marginVertical: 30}}
+        style={{flex: 1, paddingHorizontal: 20, marginTop: 10, marginBottom: 30}}
         data={keywords}
         initialNumToRender={16}
         showsVerticalScrollIndicator={false}

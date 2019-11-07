@@ -44,7 +44,10 @@ export default (props: GProps) => {
         </TouchableHighlight>
         <TouchableHighlight
           underlayColor={'transparent'}
-          onPress={() => props.screenProps.dispatch({type: 'SetIsShowSideBrand', data: true})}
+          onPress={() => {
+            console.log(222);
+            props.screenProps.dispatch({type: 'SetIsShowSideBrand', data: true});
+          }}
           style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

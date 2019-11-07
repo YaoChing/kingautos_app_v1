@@ -4,9 +4,11 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Main from '../Main';
+import FavoriteList from '../FavoriteList';
 
 const RootStatck = createStackNavigator({
-  Main
+  Main,
+  FavoriteList
 }, {
   initialRouteName: "Main",
   defaultNavigationOptions: {
