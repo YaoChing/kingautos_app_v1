@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useMemo} from 'react';
 import {
   View,
   Text,
@@ -228,6 +228,8 @@ const _CategoryScope = (props: _CategoryScopeProps) => {
 }
 
 export default (props: GProps) => {
+  let scrollViewRef = useRef<ScrollView>(null);
+
   const _switchShow = () => {
     props.screenProps.dispatch({
       type: 'SetIsShowSideMenu', 
@@ -238,6 +240,10 @@ export default (props: GProps) => {
   useEffect(() => {
     return () => {}
   });
+
+  useMemo(() => {
+    if(props.screenProps.state.isShowSideMenu) scrollViewRef.current!.scrollTo({x: 0, y: 0, animated: true});
+  }, [props.screenProps.state.isShowSideMenu]);
 
   return (
     <>
@@ -263,6 +269,7 @@ export default (props: GProps) => {
           </View>
         </TouchableHighlight>
         <ScrollView
+          ref={scrollViewRef}
           style={{flex: 1, paddingHorizontal: 10, marginBottom: 30}}>
           <View
             style={{flex: 0, flexDirection: 'row', alignItems: 'center', paddingVertical: 15}}>

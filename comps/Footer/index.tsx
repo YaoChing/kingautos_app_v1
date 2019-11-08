@@ -34,7 +34,7 @@ export default (props: GProps) => {
           onPress={() => {
             props.screenProps.dispatch({type: 'SetCateFromFooter', data: 'all'});
           }}
-          style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
+          style={{flex: 0.2, justifyContent: 'center', alignItems: 'center', backgroundColor: (props.screenProps.state.nowCate === 'all') ? '#b71d29' : '#222222'}}>
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Icon name="list" size={25} color="#ffffff" />
@@ -45,10 +45,9 @@ export default (props: GProps) => {
         <TouchableHighlight
           underlayColor={'transparent'}
           onPress={() => {
-            console.log(222);
             props.screenProps.dispatch({type: 'SetIsShowSideBrand', data: true});
           }}
-          style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
+          style={{flex: 0.2, justifyContent: 'center', alignItems: 'center', backgroundColor: (props.screenProps.state.nowArea === 'brandArea') ? '#b71d29' : '#222222'}}>
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Icon3 name="car" size={25} color="#ffffff" />
@@ -59,7 +58,7 @@ export default (props: GProps) => {
         <TouchableHighlight
           underlayColor={'transparent'}
           onPress={() => props.screenProps.dispatch({type: 'SetTagFromFooter', data: 'BMW'})}
-          style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
+          style={{flex: 0.2, justifyContent: 'center', alignItems: 'center', backgroundColor: (props.screenProps.state.nowArea === 'faqArea') ? '#b71d29' : '#222222'}}>
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Icon name="megaphone" size={25} color="#ffffff" />
@@ -70,7 +69,7 @@ export default (props: GProps) => {
         <TouchableHighlight
           underlayColor={'transparent'}
           onPress={() => true}
-          style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
+          style={{flex: 0.2, justifyContent: 'center', alignItems: 'center', backgroundColor: (props.screenProps.state.nowArea === 'memberArea') ? '#b71d29' : '#222222'}}>
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Icon2 name="user" size={35} color="#ffffff" />

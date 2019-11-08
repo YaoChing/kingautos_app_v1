@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo} from 'react';
+import React, {useEffect, useRef, useMemo} from 'react';
 import {
   View,
   Text,
@@ -206,6 +206,8 @@ class _BrandFirstLevelItem extends React.PureComponent<_BrandFirstLevelItemProps
 }
 
 export default (props: GProps) => {
+  let scrollViewRef = useRef<ScrollView>(null);
+
   const _switchShow = () => {
     props.screenProps.dispatch({
       type: 'SetIsShowSideBrand', 
@@ -216,6 +218,10 @@ export default (props: GProps) => {
   useEffect(() => {
     return () => {}
   });
+
+  useMemo(() => {
+    if(props.screenProps.state.isShowSideBrand) scrollViewRef.current!.scrollTo({x: 0, y: 0, animated: true});
+  }, [props.screenProps.state.isShowSideBrand]);
 
   return (
     <View
@@ -244,6 +250,7 @@ export default (props: GProps) => {
           </View>
         </TouchableHighlight>
         <ScrollView
+          ref={scrollViewRef}
           removeClippedSubviews={true}
           style={{flex: 1, paddingHorizontal: 10, marginBottom: 30}}>
           {Brands.map((value, index) => {
