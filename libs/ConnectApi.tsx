@@ -75,3 +75,11 @@ export const getArticleData = async (articleID: number) => {
 
   return {id: articleID, data: result.data}
 }
+
+// 取得討論區列表
+export const getFqaData = async (fqaType: string, page: number) => {
+  let url: string = Constants.apiUrl + '/faqlist/' + fqaType + '/' + page;
+  let result: any = await _fetchData(url);
+
+  return {data: result.data, totalPage: result.totalPage}
+}
