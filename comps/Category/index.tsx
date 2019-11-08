@@ -30,7 +30,7 @@ export default (props: GProps) => {
 
   const _regenData = async (page: number) => {
     let nowCateID = 0;
-    let nowCateSlug = props.screenProps.state.nowCate;
+    let nowCateSlug = props.screenProps.state.nowCate || 'all';
 
     for(let key in TotalCategories) {
       let value = TotalCategories[key];

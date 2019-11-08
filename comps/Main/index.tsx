@@ -11,9 +11,11 @@ import Brand from '../Brand';
 import Tag from '../Tag';
 import ConnectUs from '../ConnectUs';
 import Search from '../Search';
+import Fqa from '../Fqa';
 
 export interface GProps {
-  screenProps: {state: any, dispatch: any}
+  screenProps: {state: any, dispatch: any},
+  navigation: any
 };
 
 export default (props: GProps) => {
@@ -41,6 +43,9 @@ export default (props: GProps) => {
         break;
       case 'searchArea':
         scope = <Search {...props} />;
+        break;
+      case 'fqaArea':
+        scope = <Fqa {...props} />;
         break;
       default: 
         scope = <View style={{flex: 1}} />;
