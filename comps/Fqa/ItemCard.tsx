@@ -78,7 +78,7 @@ export default (props: FqaProps) => {
                 style={{color: '#222222', fontSize: 15}}>提問</Text>
             </View>
           </View>
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{flex: 1, justifyContent: 'center'}}>
             <Text
               numberOfLines={3}
               style={{fontSize: 18, lineHeight: 22}} >{item.content}</Text>
