@@ -3,12 +3,12 @@ import {
   View,
   FlatList
 } from 'react-native';
-import { Spinner } from 'native-base';
 
 import {
   getCategoryData
 } from '../../libs/ConnectApi';
 import TotalCategories from '../../configs/TotalCategories';
+import { pageView } from '../../libs/Analytice'
 
 import RegenItemCard from './RegenItemCard';
 import GoToTop from './GotoTop';
@@ -30,6 +30,7 @@ export default (props: GProps) => {
 
   const _regenData = async (page: number) => {
     let nowCateID = 0;
+    let tempCateName = '';
     let nowCateSlug = props.screenProps.state.nowCate || 'all';
 
     for(let key in TotalCategories) {
@@ -37,6 +38,7 @@ export default (props: GProps) => {
 
       if(value.slug === nowCateSlug) {
         nowCateID = value.id;
+        tempCateName = value.name;
       }
     }
 
@@ -47,6 +49,7 @@ export default (props: GProps) => {
     }
     
     setNowPage(page);
+    pageView({name: tempCateName, page});
 
     return result;
   }
