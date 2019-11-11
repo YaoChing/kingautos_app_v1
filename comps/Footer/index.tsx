@@ -2,11 +2,14 @@ import React from 'react';
 import {
   View,
   Text,
-  TouchableHighlight
+  TouchableHighlight,
+  Dimensions
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import Icon2 from 'react-native-vector-icons/EvilIcons';
 import Icon3 from 'react-native-vector-icons/AntDesign';
+
+const {height, width} = Dimensions.get('window');
 
 export interface GProps {
   screenProps: {state: any, dispatch: any}
@@ -15,7 +18,7 @@ export interface GProps {
 export default (props: GProps) => {
   return (
     <View
-      style={{flex: 0.1, backgroundColor: '#222222'}}>
+      style={{width, height: 50, backgroundColor: '#222222'}}>
       <View
         style={{flex: 1, flexDirection: 'row'}}>
         <TouchableHighlight

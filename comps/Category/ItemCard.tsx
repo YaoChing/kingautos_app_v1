@@ -113,7 +113,7 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
               style={{flex: 1, justifyContent: 'center', marginVertical: 5}}>
               <Text
                 numberOfLines={2}
-                style={{fontSize: 16}}>{this.state.item.title}</Text>
+                style={{fontSize: 18}}>{this.state.item.title}</Text>
             </View>
             <View
               style={{flex: 0.5, flexDirection: 'row'}}>

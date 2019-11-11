@@ -61,11 +61,11 @@ class _BrandSecondLevelItem extends React.PureComponent<_BrandSecondLevelItemPro
         onPress={() => {
           this.props.screenProps.dispatch({type: 'SetBrandFromSideBrand', data: item.name});
         }} 
-        style={{flex: 0, height: 50}}>
+        style={{width: width * 0.58, height: 55}}>
         <View
-          style={{width:　width * 0.8 * 0.8 - 20, height: 50, paddingHorizontal: 20, justifyContent: 'center',backgroundColor: (nowCate !== item.name) ? '#ffffff' : '#b71d29'}}>
+          style={{width:　width * 0.8 * 0.8 - 20, height: 55, paddingHorizontal: 20, justifyContent: 'center',backgroundColor: (nowCate !== item.name) ? '#ffffff' : '#b71d29'}}>
           <Text
-            style={{fontSize: 16, color: (nowCate !== item.name) ? '#222222' : '#ffffff'}}>{item.name}</Text>
+            style={{fontSize: 18, color: (nowCate !== item.name) ? '#222222' : '#ffffff'}}>{item.name}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -147,7 +147,7 @@ class _BrandFirstLevelItem extends React.PureComponent<_BrandFirstLevelItemProps
     Animated.timing(
       this.state.subView,
       {
-        toValue: 50 * this.props.firstLevelItem.subs.length,
+        toValue: 60 * this.props.firstLevelItem.subs.length,
         duration: 200
       }
     ).start();
@@ -175,18 +175,18 @@ class _BrandFirstLevelItem extends React.PureComponent<_BrandFirstLevelItemProps
             onPress={() => {
               this.setIsShowSubItem(!this.state.isShowSubItem);
             }}
-            style={{flex: 0.8}}>
+            style={{width: width * 0.58, height: 55}}>
             <View
-              style={{flex: 1, justifyContent: 'center', paddingVertical: 15, paddingLeft: 5}}>
+              style={{flex: 1, justifyContent: 'center', paddingLeft: 5}}>
               <Text
-                style={{fontSize: 16}}>{item.name}</Text>
+                style={{fontSize: 18}}>{item.name}</Text>
             </View>
           </TouchableHighlight>
           {(item.subs.length > 0) ? (
             <TouchableHighlight
               underlayColor={'transparent'}
               onPress={() => this.setIsShowSubItem(!this.state.isShowSubItem)}
-              style={{flex: 0.2}} >
+              style={{width: width * 0.2, height: 55}} >
               <View
                 style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                 <Icon name={(this.state.isShowSubItem) ? "chevron-up" : "chevron-down"} size={40} color="#222222" />
@@ -241,7 +241,7 @@ export default (props: GProps) => {
         <TouchableHighlight
           underlayColor="transparent"
           onPress={() => _switchShow()}
-          style={{flex: 0.1, alignItems: 'flex-start', justifyContent: 'center'}}>
+          style={{width: width * 0.8, height: 70, alignItems: 'flex-start', justifyContent: 'center'}}>
           <View
             style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 5}}>
             <Icon name="close" size={35} color="#222222" />

@@ -59,9 +59,9 @@ class _ItemCard extends React.PureComponent <ItemCardProps, ItemCardState> {
         underlayColor={'transparent'}
         onPress={() => this.props.screenProps.dispatch({type: 'SetCateFromSearch', data: item})} >
         <View
-          style={{paddingHorizontal: 20, paddingVertical: 15, justifyContent: 'center'}}>
+          style={{width, height: 55, paddingVertical: 15, justifyContent: 'center'}}>
           <Text
-            style={{fontSize: 16}}>{item}</Text>
+            style={{fontSize: 18}}>{item}</Text>
         </View>
       </TouchableHighlight>
     );

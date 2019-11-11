@@ -121,7 +121,7 @@ export default (props: GProps) => {
   return (
     <Fragment>
       <View
-        style={{flex: 0.08, backgroundColor: '#222222'}}>
+        style={{width, height: 50, backgroundColor: '#222222'}}>
         <View
           style={{flex: 1, flexDirection: 'row'}}>
           <TouchableHighlight
@@ -186,7 +186,7 @@ export default (props: GProps) => {
           height
         }}>
         <View
-          style={{flex: 0.1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff'}}>
+          style={{width, height: 70, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff'}}>
           <View
             style={{flex: 1, flexDirection: 'row', marginHorizontal: 10, paddingVertical: 5}}>
             <View

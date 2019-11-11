@@ -60,11 +60,11 @@ class _CategorySecondLevelItem extends React.PureComponent<_CategorySecondLevelI
         onPress={() => {
           this.props.screenProps.dispatch({type: 'SetCateFromSideMenu', data: item.slug});
         }} 
-        style={{flex: 0, height: 50}}>
+        style={{width: width * 0.8, height: 55}}>
         <View
-          style={{width:　width * 0.8 * 0.8 - 20, height: 50, paddingHorizontal: 20, justifyContent: 'center', backgroundColor: (nowCate !== item.slug) ? '#ffffff' : '#b71d29'}}>
+          style={{width:　width * 0.8 * 0.8 - 20, height: 55, paddingHorizontal: 20, justifyContent: 'center', backgroundColor: (nowCate !== item.slug) ? '#ffffff' : '#b71d29'}}>
           <Text
-            style={{fontSize: 16, color: (nowCate !== item.slug) ? '#222222' : '#ffffff'}}>{item.name}</Text>
+            style={{fontSize: 18, color: (nowCate !== item.slug) ? '#222222' : '#ffffff'}}>{item.name}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -146,7 +146,7 @@ class _CategoryFirstLevelItem extends React.PureComponent<_CategoryFirstLevelIte
     Animated.timing(
       this.state.subView,
       {
-        toValue: 50 * this.props.firstLevelItem.subs.length,
+        toValue: 60 * this.props.firstLevelItem.subs.length,
         duration: 200
       }
     ).start();
@@ -175,18 +175,18 @@ class _CategoryFirstLevelItem extends React.PureComponent<_CategoryFirstLevelIte
             onPress={() => {
               this.props.screenProps.dispatch({type: 'SetCateFromSideMenu', data: item.slug});
             }}
-            style={{flex: 0.8}}>
+            style={{width: width * 0.58, height: 55}}>
             <View
               style={{flex: 1, justifyContent: 'center', paddingVertical: 15, paddingLeft: 5, backgroundColor: (nowCate !== item.slug) ? '#ffffff' : '#b71d29'}}>
               <Text
-                style={{fontSize: 16, color: (nowCate !== item.slug) ? '#222222' : '#ffffff'}}>{item.name}</Text>
+                style={{fontSize: 18, color: (nowCate !== item.slug) ? '#222222' : '#ffffff'}}>{item.name}</Text>
             </View>
           </TouchableHighlight>
           {(item.subs.length > 0) ? (
             <TouchableHighlight
               underlayColor={'transparent'}
               onPress={() => this.setIsShowSubItem(!this.state.isShowSubItem)}
-              style={{flex: 0.2}} >
+              style={{width: width * 0.2, height: 55}} >
               <View
                 style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                 <Icon name={(this.state.isShowSubItem) ? "chevron-up" : "chevron-down"} size={40} color="#222222" />
@@ -260,7 +260,7 @@ export default (props: GProps) => {
         <TouchableHighlight
           underlayColor="transparent"
           onPress={() => _switchShow()}
-          style={{flex: 0.1, alignItems: 'flex-end', justifyContent: 'center'}}>
+          style={{width: width * 0.8, height: 70, alignItems: 'flex-end', justifyContent: 'center'}}>
           <View
             style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 5}}>
             <Icon name="close" size={35} color="#222222" />
@@ -272,7 +272,7 @@ export default (props: GProps) => {
           ref={scrollViewRef}
           style={{flex: 1, paddingHorizontal: 10, marginBottom: 30}}>
           <View
-            style={{flex: 0, flexDirection: 'row', alignItems: 'center', paddingVertical: 15}}>
+            style={{width: width * 0.8, height: 70, flexDirection: 'row', alignItems: 'center', paddingVertical: 15}}>
             <Icon name="user" size={45} color="#222222" />
             <Text
               style={{fontSize: 18}}>會員登入</Text>
@@ -284,15 +284,15 @@ export default (props: GProps) => {
               _switchShow();
               props.navigation.push('FavoriteList');
             }}
-            style={{flex: 0, flexDirection: 'row', paddingVertical: 15, paddingLeft: 5, borderTopColor: '#c2c2c2', borderTopWidth: 1}}>
+            style={{flex: 0, flexDirection: 'row', paddingLeft: 5, borderTopColor: '#c2c2c2', borderTopWidth: 1}}>
             <>
               <View
-                style={{flex: 1, justifyContent: 'center'}}>
+                style={{width: width * 0.55, height: 55, justifyContent: 'center'}}>
                 <Text
-                style={{fontSize: 16}}>會員專區</Text>
+                style={{fontSize: 18}}>會員專區</Text>
               </View>
               <View
-                style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
+                style={{width: width * 0.2, height: 55, justifyContent: 'center', alignItems: 'center'}}>
                 <Text
                   style={{fontSize: 16}}>登入</Text>
               </View>
@@ -301,9 +301,9 @@ export default (props: GProps) => {
           <TouchableHighlight
             underlayColor="transparent"
             onPress={() => props.screenProps.dispatch({type: 'SetAreaFromSideMenu', data: 'connectus'})}
-            style={{flex: 1, justifyContent: 'center', paddingVertical: 15, paddingLeft: 5, backgroundColor: (props.screenProps.state.nowCate !== 'connectus') ? '#ffffff' : '#b71d29', borderTopColor: '#c2c2c2', borderTopWidth: 1}}>
+            style={{width: width * 0.8, height: 55, justifyContent: 'center', paddingVertical: 15, paddingLeft: 5, backgroundColor: (props.screenProps.state.nowCate !== 'connectus') ? '#ffffff' : '#b71d29', borderTopColor: '#c2c2c2', borderTopWidth: 1}}>
             <Text
-              style={{fontSize: 16, color: (props.screenProps.state.nowCate !== 'connectus') ? '#222222' : '#ffffff'}}>聯絡我們</Text>
+              style={{fontSize: 18, color: (props.screenProps.state.nowCate !== 'connectus') ? '#222222' : '#ffffff'}}>聯絡我們</Text>
           </TouchableHighlight>
         </ScrollView>
       </View>
