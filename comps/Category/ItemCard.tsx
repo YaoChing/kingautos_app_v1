@@ -2,13 +2,11 @@ import React, {useState, useEffect, useMemo} from 'react';
 import {
   View,
   Text,
-  TouchableHighlight,
   Dimensions,
   Image
 } from 'react-native';
 import { Spinner } from 'native-base';
 
-import TotalCategories from '../../configs/TotalCategories';
 
 const {height, width} = Dimensions.get('window');
 

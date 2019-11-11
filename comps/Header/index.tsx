@@ -192,7 +192,7 @@ export default (props: GProps) => {
             <View
               style={{flex: 1, justifyContent: 'center'}}>
               <TextInput 
-                style={{paddingHorizontal: 25, borderBottomColor: '#222222', borderBottomWidth: 1}}
+                style={{paddingHorizontal: 25, borderBottomColor: '#222222', borderBottomWidth: 1, fontSize: 18, fontWeight: 'bold'}}
                 placeholder='搜尋關鍵字'
                 onChange={(event) => {
                   let {eventCount, target, text} = event.nativeEvent

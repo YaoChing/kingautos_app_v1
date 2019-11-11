@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
   View,
   FlatList,
-  Dimensions
+  Text,
+  Dimensions,
+  TouchableHighlight,
+  Animated
 } from 'react-native';
-import { Picker } from 'native-base';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import {
@@ -24,12 +26,19 @@ export interface GProps {
 
 export interface FqaProps extends GProps {}
 
+let _contentHeight = 0;
+let _scrollViewHeight = 0;
+
 export default (props: FqaProps) => {
   let [nowPage, setNowPage] = useState(1);
   let [cateData, setCateData] = useState({data: [], totalPage: 1});
   let [showTopBtn, setShowTopBtn] = useState(false);
   let [isNoData, setIsNoData] = useState(false);
   let [nowTab, setNowTab] = useState('all');
+  let [nowTabName, setNowTabName] = useState('最新問答');
+  let [isShowTabList, setIsShowTabList] = useState(new Animated.ValueXY({x: 0, y: height}));
+
+  let flatListRef = useRef<FlatList>(null);
 
   const _regenData = async (page: number) => {
     let result = await _getData(nowTab, page);
@@ -79,9 +88,22 @@ export default (props: FqaProps) => {
 
   let _ref: any;
   let _isSend = false;
+  let tabs = [{
+    name: '最新問答',
+    slug: 'all'
+  }, {
+    name: '熱門問答',
+    slug: 'hotrank'
+  }, {
+    name: '品牌車系',
+    slug: '品牌車系'
+  }, {
+    name: '新車選購',
+    slug: '新車選購'
+  }];
 
   const goToTop = () => {
-    _ref.scrollToOffset({ animated: true, offset: 0 });
+    flatListRef.current!.scrollToOffset({ animated: true, offset: 0 });
   }
 
   const onValueChange = async (value: string) => {
@@ -95,27 +117,50 @@ export default (props: FqaProps) => {
     setNowTab(value);
   }
 
+  const _showSelectTab = () => {
+    Animated.timing(
+      isShowTabList,
+      {
+        toValue: {x: 0, y: 0},
+        duration: 100,
+        useNativeDriver: true
+      }
+    ).start();
+  }
+
+  const _hideSelectTab = () => {
+    Animated.timing(
+      isShowTabList,
+      {
+        toValue: {x: 0, y: height},
+        duration: 0,
+        useNativeDriver: true
+      }
+    ).start();
+  }
+
   return (
     <>
-      <View
-        style={{width, height: 45, borderLeftColor: '#b71d29', borderLeftWidth: 8, marginHorizontal: 10, marginVertical: 5, paddingHorizontal: 10}}>
-        <Picker
-          mode="dropdown"
-          iosIcon={<Icon name="caretdown" />}
-          style={{fontSize: 18, fontWeight: 'bold'}}
-          placeholder="Select your SIM"
-          placeholderStyle={{ color: "#bfc6ea" }}
-          placeholderIconColor="#007aff"
-          selectedValue={nowTab}
-          onValueChange={onValueChange}
-        >
-          <Picker.Item label="最新問答" value="all" />
-          <Picker.Item label="熱門問答" value="hotrank" />
-          <Picker.Item label="品牌車系" value="品牌車系" />
-          <Picker.Item label="新車選購" value="新車選購" />
-        </Picker>
-      </View>
+      <TouchableHighlight
+        underlayColor={'transparent'}
+        onPress={() => {
+          _showSelectTab();
+        }} >
+        <View
+          style={{width, height: 35, flexDirection: 'row', borderLeftColor: '#b71d29', borderLeftWidth: 8, padding: 5, margin: 10, alignItems: 'center'}}>
+          <View
+            style={{flex: 1}}>
+            <Text
+              style={{fontSize: 18, fontWeight: 'bold', fontStyle: 'italic'}}>{nowTabName}</Text>
+          </View>
+          <View
+            style={{flex: 0.2, alignItems: 'flex-end', paddingRight: 30}}>
+            <Icon name="caretdown" />
+          </View>
+        </View>
+      </TouchableHighlight>
       <FlatList
+        ref={flatListRef}
         style={{flex: 1}}
         data={cateData.data}
         showsVerticalScrollIndicator={false}
@@ -123,6 +168,43 @@ export default (props: FqaProps) => {
         removeClippedSubviews={true} 
         initialNumToRender={10}
         scrollEventThrottle={160}
+        onContentSizeChange={(w, h) => {
+          _contentHeight = h;
+        }}
+        onLayout={event => {
+          _scrollViewHeight = event.nativeEvent.layout.height;
+        }}
+        onScroll={async (event) => { 
+          let viewHeight = _contentHeight - _scrollViewHeight;
+          let nowScollPos = event.nativeEvent.contentOffset.y;
+
+          if(nowScollPos > 100 && !showTopBtn) {
+            setShowTopBtn(!showTopBtn);
+          } else if(nowScollPos < 100 && showTopBtn) {
+            setShowTopBtn(!showTopBtn);
+          }
+
+          if(Math.ceil(viewHeight - 10) <= nowScollPos) {
+            if(_isSend) return false;
+
+            let tempPage = nowPage + 1;
+
+            if(tempPage > cateData.totalPage) {
+              _isSend = true;
+              return false;
+            }
+
+            if(isNoData) setIsNoData(false);
+
+            let result = await _regenData(tempPage);
+
+            result.data = cateData.data.concat(result.data);
+
+            setCateData(result);
+
+            _isSend = true;
+          }
+        }}
         ItemSeparatorComponent={() => {
           return (
             <View 
@@ -130,8 +212,64 @@ export default (props: FqaProps) => {
           )
         }}
         renderItem={({item, index}) => {
-          return <ItemCard fqaData={item} {...props} />
+          return <ItemCard fqaData={item} rnowIndex={index} rtotalCount={cateData.data.length} rshowSpinner={nowPage < cateData.totalPage} {...props} />
         }} />
+      {(showTopBtn) ? <GoToTop goToTop={goToTop} /> : null}
+      <Animated.View
+        style={{
+          position: 'absolute', 
+          width, 
+          height, 
+          transform: [{translateY: isShowTabList.y}],
+          zIndex: 999
+        }}>
+        <View
+          style={{position: 'absolute', top: 0, left: 0, justifyContent: 'center', alignItems: 'center'}}>
+          <TouchableHighlight
+            underlayColor={'transparent'}
+            onPress={() => {
+              _hideSelectTab();
+            }}
+            style={{width, height}} >
+            <View
+              style={{flex: 1, backgroundColor: '#222222', opacity: 0.8}} />
+          </TouchableHighlight>
+          <View
+            style={{position: 'absolute', width: 300, height: 240}}>
+            <FlatList
+              style={{flex: 1, backgroundColor: '#ffffff', borderRadius: 10}}
+              data={tabs}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
+              removeClippedSubviews={true} 
+              ItemSeparatorComponent={() => {
+                return (
+                  <View 
+                    style={{height: 1, backgroundColor: '#b8b8b8'}} />
+                )
+              }}
+              renderItem={({item, index}) => {
+                return (
+                  <TouchableHighlight
+                    underlayColor={'transparent'}
+                    onPress={() => {
+                      onValueChange(item.slug);
+                      setNowTabName(item.name);
+                      setShowTopBtn(false);
+                      _hideSelectTab();
+                    }}
+                    style={{height: 60}} >
+                    <View
+                      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                      <Text
+                        style={{fontSize: 18, fontWeight: 'bold'}}>{item.name}</Text>
+                    </View>
+                  </TouchableHighlight>
+                );
+              }} />
+          </View>
+        </View>
+      </Animated.View>
     </>
   );
 }
