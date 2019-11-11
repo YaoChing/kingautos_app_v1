@@ -21,12 +21,14 @@ export const initFunction = (state: any, action: {type: string, data: any}) => {
       return Object.assign({}, state, {nowCate: action.data, nowArea: 'fqaArea'});
     
     // 左側選單
+    case 'SetFqaFromSideMenu':
+      return Object.assign({}, state, {nowCate: action.data, nowArea: 'fqaArea', isShowSideMenu: false});
     case 'SetTagFromSideMenu':
       return Object.assign({}, state, {nowCate: action.data, nowArea: 'tagArea', isShowSideMenu: false});
     case 'SetCateFromSideMenu':
       return Object.assign({}, state, {nowCate: action.data, nowArea: 'categoryArea', isShowSideMenu: false});
     case 'SetAreaFromSideMenu':
-        return Object.assign({}, state, {nowCate: action.data, nowArea: action.data + 'Area', isShowSideMenu: false});
+      return Object.assign({}, state, {nowCate: action.data, nowArea: action.data + 'Area', isShowSideMenu: false});
     
     // 搜尋選單
     case 'SetCateFromSearch':

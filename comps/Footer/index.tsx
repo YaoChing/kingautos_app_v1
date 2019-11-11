@@ -60,7 +60,7 @@ export default (props: GProps) => {
         </TouchableHighlight>
         <TouchableHighlight
           underlayColor={'transparent'}
-          onPress={() => props.screenProps.dispatch({type: 'SetFqaFromFooter', data: ''})}
+          onPress={() => props.screenProps.dispatch({type: 'SetFqaFromFooter', data: 'askQAIfWantToBuyCar'})}
           style={{flex: 0.2, justifyContent: 'center', alignItems: 'center', backgroundColor: (props.screenProps.state.nowArea === 'fqaArea') ? '#b71d29' : '#222222'}}>
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

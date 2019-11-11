@@ -173,7 +173,7 @@ class _CategoryFirstLevelItem extends React.PureComponent<_CategoryFirstLevelIte
           <TouchableHighlight
             underlayColor="transparent"
             onPress={() => {
-              this.props.screenProps.dispatch({type: 'SetCateFromSideMenu', data: item.slug});
+              this.props.screenProps.dispatch({type: (item.slug === 'askQAIfWantToBuyCar') ? 'SetFqaFromSideMenu' : 'SetCateFromSideMenu', data: item.slug});
             }}
             style={{width: width * 0.58, height: 55}}>
             <View
