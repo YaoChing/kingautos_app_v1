@@ -22,7 +22,6 @@ export interface ItemCardProps extends GProps {
 }
 export interface ItemCardState {
   item: any,
-  itemWidth: number,
   smallWidth: number,
   srcSmallHeight: number,
   smallScale: number,
@@ -37,7 +36,6 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
 
     this.state = {
       item: {},
-      itemWidth: 0,
       smallWidth: 0,
       srcSmallHeight: 0,
       smallScale: 0,
@@ -63,7 +61,6 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
 
       this.setState({
         item,
-        itemWidth,
         smallWidth,
         srcSmallHeight,
         smallScale
@@ -97,24 +94,21 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
     return (
       <>
         <View
-          style={{width: this.state.itemWidth, flexDirection: 'row', marginVertical: 5}}>
-          <View
-            style={{flex: 0.8, alignItems: 'center'}}>
-            <Image
-              style={{width: this.state.smallWidth, height: this.state.srcSmallHeight * this.state.smallScale}}
-              source={(this.state.imgOnLoad) ? {uri: imgStr} : require('../../files/prepare.jpg')}
-              onError={() => this.setState({imgOnLoad: false})} />
-          </View>
+          style={{width: width - 10, height: this.state.srcSmallHeight * this.state.smallScale, flexDirection: 'row', margin: 5}}>
+          <Image
+            style={{width: this.state.smallWidth, height: this.state.srcSmallHeight * this.state.smallScale}}
+            source={(this.state.imgOnLoad) ? {uri: imgStr} : require('../../files/prepare.jpg')}
+            onError={() => this.setState({imgOnLoad: false})} />
           <View
             style={{flex: 1, flexDirection: 'column'}}>
             <View
-              style={{flex: 1, justifyContent: 'center', marginVertical: 5}}>
+              style={{flex: 1, paddingHorizontal: 10}}>
               <Text
-                numberOfLines={2}
+                numberOfLines={3}
                 style={{fontSize: 18}}>{this.state.item.title}</Text>
             </View>
             <View
-              style={{flex: 0.5, flexDirection: 'row'}}>
+              style={{flex: 0.5, flexDirection: 'row', paddingHorizontal: 10}}>
               <View
                 style={{flex: 1, justifyContent: 'center'}}>
                 <Text

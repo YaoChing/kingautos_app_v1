@@ -38,7 +38,7 @@ export default (props: FqaProps) => {
   let [nowTabName, setNowTabName] = useState('最新問答');
   let [isShowTabList, setIsShowTabList] = useState(new Animated.ValueXY({x: 0, y: height}));
 
-  let flatListRef = useRef<FlatList>(null);
+  let flatListRef = useRef<FlatList<null>>(null);
 
   const _regenData = async (page: number) => {
     let result = await _getData(nowTab, page);
