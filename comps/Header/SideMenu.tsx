@@ -146,7 +146,7 @@ class _CategoryFirstLevelItem extends React.PureComponent<_CategoryFirstLevelIte
     Animated.timing(
       this.state.subView,
       {
-        toValue: 60 * this.props.firstLevelItem.subs.length,
+        toValue: 55 * this.props.firstLevelItem.subs.length,
         duration: 200
       }
     ).start();
@@ -213,7 +213,7 @@ const _CategoryScope = (props: _CategoryScopeProps) => {
   for(let key in Categories) {
     let value = Categories[key];
 
-    if(value.screenArea !== 'member' && value.screenArea !== 'connectus') {
+    if(value.name !== '首頁' && value.screenArea !== 'member' && value.screenArea !== 'connectus') {
       categoriesData.push(value);
     }
   }
