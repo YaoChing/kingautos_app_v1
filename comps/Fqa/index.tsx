@@ -8,6 +8,7 @@ import {
   Animated
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { pageView } from '../../libs/Analytice';
 
 import {
   getFqaData
@@ -37,10 +38,12 @@ export default (props: FqaProps) => {
   let [nowTab, setNowTab] = useState('all');
   let [nowTabName, setNowTabName] = useState('最新問答');
   let [isShowTabList, setIsShowTabList] = useState(new Animated.ValueXY({x: 0, y: height}));
-
   let flatListRef = useRef<FlatList<null>>(null);
-
+  let [isSend, setIsSend] = useState(false);
+  
   const _regenData = async (page: number) => {
+    if(isSend) return false;
+
     let result = await _getData(nowTab, page);
 
     if(result.data.length <= 0) {
@@ -48,6 +51,7 @@ export default (props: FqaProps) => {
     }
     
     setNowPage(page);
+    pageView({name: '買車請借問_' + nowTab, page});
 
     return result;
   }
@@ -86,8 +90,6 @@ export default (props: FqaProps) => {
     )
   }
 
-  let _ref: any;
-  let _isSend = false;
   let tabs = [{
     name: '最新問答',
     slug: 'all'
@@ -160,6 +162,7 @@ export default (props: FqaProps) => {
         </View>
       </TouchableHighlight>
       <FlatList
+        scrollEnabled={!isSend}
         ref={flatListRef}
         style={{flex: 1}}
         data={cateData.data}
@@ -185,12 +188,14 @@ export default (props: FqaProps) => {
           }
 
           if(Math.ceil(viewHeight - 10) <= nowScollPos) {
-            if(_isSend) return false;
+            if(isSend) return false;
+
+            setIsSend(true);
 
             let tempPage = nowPage + 1;
 
             if(tempPage > cateData.totalPage) {
-              _isSend = true;
+              setIsSend(false);
               return false;
             }
 
@@ -202,7 +207,7 @@ export default (props: FqaProps) => {
 
             setCateData(result);
 
-            _isSend = true;
+            setTimeout(() => setIsSend(false), 100);
           }
         }}
         ItemSeparatorComponent={() => {

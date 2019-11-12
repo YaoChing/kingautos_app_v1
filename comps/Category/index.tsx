@@ -92,7 +92,6 @@ export default (props: GProps) => {
   }
 
   let _ref: any;
-  
 
   const goToTop = () => {
     _ref.scrollToOffset({ animated: true, offset: 0 });
