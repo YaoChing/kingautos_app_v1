@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "start": "npx react-native start --reset-cache",
     "test": "jest",
-    "sync_git": "rsync -av App.tsx comps libs configs package.json readme.md /media/yaoching/backup/WPs/git/kingautos_app_v1/."
+    "sync_git": "rsync -av App.tsx comps libs configs package.json readme.md files /media/yaoching/backup/WPs/git/kingautos_app_v1/."
   },
   "dependencies": {
     "@react-native-firebase/analytics": "^6.0.3",
