@@ -120,7 +120,7 @@ export default (props: GProps) => {
             let tempPage = nowPage + 1;
 
             if(tempPage > cateData.totalPage) {
-              _isSend = true;
+              setIsSend(false);
               return false;
             }
 
