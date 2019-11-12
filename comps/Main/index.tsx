@@ -1,6 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {
-  SafeAreaView,
   View
 } from 'react-native';
 
@@ -56,11 +55,10 @@ export default (props: GProps) => {
   }, [props.screenProps.state.nowCate]);
 
   return (
-    <SafeAreaView
-      style={{flex: 1}}>
+    <>
       <Header {...props} />
       {nowScope}
       <Footer {...props} />
-    </SafeAreaView>
+    </>
   );
 }

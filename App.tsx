@@ -1,4 +1,7 @@
 import React, {useReducer} from 'react';
+import {
+  StatusBar
+} from 'react-native';
 
 import Router from './comps/Router';
 
@@ -9,5 +12,10 @@ export interface GProps {}
 export default (props: GProps) => {
   const [state, dispatch] = useReducer(initFunction, initState);
 
-  return <Router state={state} dispatch={dispatch} />;
+  return (
+    <>
+      <StatusBar barStyle="light-content" />
+      <Router state={state} dispatch={dispatch} />
+    </>
+  );
 };

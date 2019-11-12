@@ -5,7 +5,8 @@ import {
   Text,
   Dimensions,
   TouchableHighlight,
-  Animated
+  Animated,
+  Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { pageView } from '../../libs/Analytice';
@@ -242,11 +243,12 @@ export default (props: FqaProps) => {
           <View
             style={{position: 'absolute', width: 300, height: 240}}>
             <FlatList
+              scrollEnabled={false}
               style={{flex: 1, backgroundColor: '#ffffff', borderRadius: 10}}
               data={tabs}
               showsVerticalScrollIndicator={false}
               keyExtractor={(item, index) => index.toString()}
-              removeClippedSubviews={true} 
+              removeClippedSubviews={Platform.OS !== 'ios'} 
               ItemSeparatorComponent={() => {
                 return (
                   <View 

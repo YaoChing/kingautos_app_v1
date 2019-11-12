@@ -5,12 +5,13 @@ import {
   Dimensions,
   TouchableHighlight,
   Animated,
-  ScrollView
+  ScrollView,
+  SafeAreaView,
+  Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
 import Brands from '../../configs/Brands';
-import Brand from 'comps/Brand';
 
 const {height, width} = Dimensions.get('window');
 
@@ -223,40 +224,43 @@ export default (props: GProps) => {
   }, [props.screenProps.state.isShowSideBrand]);
 
   return (
-    <View
-      style={{flex: 1, alignItems: 'flex-end'}}>
-      {/* 背景 */}
-      <TouchableHighlight
-        underlayColor="transparent"
-        onPress={() => _switchShow()}
-        style={{position:'absolute', width, height}}>
-        <View
-          style={{width, height, backgroundColor: '#222222', opacity: 0.8}} />
-      </TouchableHighlight>
-      {/* 側邊選單總區塊 */}
+    <SafeAreaView
+      style={{flex: 1}}>
       <View
-        style={{width: width * 0.8, height, flexDirection: 'column', backgroundColor: '#ffffff'}}>
-        {/* 關閉按鈕 */}
+        style={{flex: 1, alignItems: 'flex-end'}}>
+        {/* 背景 */}
         <TouchableHighlight
           underlayColor="transparent"
           onPress={() => _switchShow()}
-          style={{width: width * 0.8, height: 70, alignItems: 'flex-start', justifyContent: 'center'}}>
+          style={{position:'absolute', width, height}}>
           <View
-            style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 5}}>
-            <Icon name="close" size={35} color="#222222" />
-            <Text
-              style={{color: '#c2c2c2', fontSize: 10}}>關閉</Text>
-          </View>
+            style={{width, height, backgroundColor: '#222222', opacity: 0.8}} />
         </TouchableHighlight>
-        <ScrollView
-          ref={scrollViewRef}
-          removeClippedSubviews={true}
-          style={{flex: 1, paddingHorizontal: 10, marginBottom: 30}}>
-          {Brands.map((value, index) => {
-            return <_BrandFirstLevelItem firstLevelItem={value} findex={index} {...props} />;
-          })}
-        </ScrollView>
+        {/* 側邊選單總區塊 */}
+        <View
+          style={{width: width * 0.8, height, flexDirection: 'column', backgroundColor: '#ffffff'}}>
+          {/* 關閉按鈕 */}
+          <TouchableHighlight
+            underlayColor="transparent"
+            onPress={() => _switchShow()}
+            style={{width: width * 0.8, height: 70, alignItems: 'flex-start', justifyContent: 'center'}}>
+            <View
+              style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 5}}>
+              <Icon name="close" size={35} color="#222222" />
+              <Text
+                style={{color: '#c2c2c2', fontSize: 10}}>關閉</Text>
+            </View>
+          </TouchableHighlight>
+          <ScrollView
+            ref={scrollViewRef}
+            removeClippedSubviews={Platform.OS !== 'ios'}
+            style={{flex: 1, paddingHorizontal: 10, marginBottom: (Platform.OS !== 'ios') ? 30 : 10}}>
+            {Brands.map((value, index) => {
+              return <_BrandFirstLevelItem firstLevelItem={value} findex={index} {...props} />;
+            })}
+          </ScrollView>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

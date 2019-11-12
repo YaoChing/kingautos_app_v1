@@ -6,7 +6,9 @@ import {
   Animated, 
   Dimensions,
   TextInput,
-  Keyboard
+  Keyboard,
+  Platform,
+  SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
@@ -24,7 +26,6 @@ export interface GProps {
 export default (props: GProps) => {
   let [sideMenuPos, setSideMenuPos] = useState(new Animated.ValueXY({x: 0 - width, y: 0}));
   let [sideBrandPos, setSideBrandPos] = useState(new Animated.ValueXY({x: width, y: 0}));
-  let [searchHotKeywordBtnPos, setSearchHotKeywordBtnPos] = useState(new Animated.ValueXY({x: width, y: 0}));
   let [searchHotKeywordListPos, setSearchHotKeywordListPos] = useState(new Animated.ValueXY({x: 0, y: height}));
   let [searchStr, setSearchStr] = useState('');
 
@@ -119,44 +120,47 @@ export default (props: GProps) => {
   }, [props.screenProps.state.isShowSearch]);
 
   return (
-    <Fragment>
-      <View
-        style={{width, height: 50, backgroundColor: '#222222'}}>
+    <>
+      <SafeAreaView
+        style={{backgroundColor: '#222222'}}>
         <View
-          style={{flex: 1, flexDirection: 'row'}}>
-          <TouchableHighlight
-            underlayColor={'transparent'}
-            onPress={() => {
-              props.screenProps.dispatch({type: 'SetIsShowSideMenu', data: !props.screenProps.state.isShowSideMenu});
-            }}
-            style={{flex: 0.2}}>
-            <View
+          style={{width, height: 50, backgroundColor: '#222222'}}>
+          <View
+            style={{flex: 1, flexDirection: 'row'}}>
+            <TouchableHighlight
+              underlayColor={'transparent'}
+              onPress={() => {
+                props.screenProps.dispatch({type: 'SetIsShowSideMenu', data: !props.screenProps.state.isShowSideMenu});
+              }}
+              style={{flex: 0.2}}>
+              <View
+                style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Icon name="navicon" size={30} color={'#ffffff'} />
+                <Text
+                  style={{fontSize: 10, color: '#c2c2c2'}}>選單</Text>
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight
+              underlayColor={'transparent'}
+              onPress={() => true}
               style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Icon name="navicon" size={30} color={'#ffffff'} />
               <Text
-                style={{fontSize: 10, color: '#c2c2c2'}}>選單</Text>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor={'transparent'}
-            onPress={() => true}
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text
-              style={{fontSize: 28, color: '#ffffff'}}>KingAutos</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor={'transparent'}
-            onPress={() => props.screenProps.dispatch({type: 'SetIsShowSearch', data: !props.screenProps.state.isShowSearch})}
-            style={{flex: 0.2}}>
-            <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Icon name="search" size={30} color={'#ffffff'} />
-              <Text
-                style={{fontSize: 10, color: '#c2c2c2'}}>搜尋</Text>
-            </View>
-          </TouchableHighlight>
+                style={{fontSize: 28, color: '#ffffff'}}>KingAutos</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              underlayColor={'transparent'}
+              onPress={() => props.screenProps.dispatch({type: 'SetIsShowSearch', data: !props.screenProps.state.isShowSearch})}
+              style={{flex: 0.2}}>
+              <View
+                style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Icon name="search" size={30} color={'#ffffff'} />
+                <Text
+                  style={{fontSize: 10, color: '#c2c2c2'}}>搜尋</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
         </View>
-      </View>
+      </SafeAreaView>
       <Animated.View
         style={{
           position: 'absolute', 
@@ -185,49 +189,51 @@ export default (props: GProps) => {
           width,
           height
         }}>
-        <View
-          style={{width, height: 70, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff'}}>
+        <SafeAreaView>
           <View
-            style={{flex: 1, flexDirection: 'row', marginHorizontal: 10, paddingVertical: 5}}>
+            style={{width, height: 70, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff'}}>
             <View
-              style={{flex: 1, justifyContent: 'center'}}>
-              <TextInput 
-                style={{paddingHorizontal: 25, borderBottomColor: '#222222', borderBottomWidth: 1, fontSize: 18, fontWeight: 'bold'}}
-                placeholder='搜尋關鍵字'
-                onChange={(event) => {
-                  let {eventCount, target, text} = event.nativeEvent
-                  setSearchStr(text);
-                }}
-                value={searchStr} />
-            </View>
-            <TouchableHighlight
-              underlayColor={'transparent'}
-              onPress={() => {
-                Keyboard.dismiss();
+              style={{flex: 1, flexDirection: 'row', marginHorizontal: 10, paddingVertical: 5}}>
+              <View
+                style={{flex: 1, justifyContent: 'center'}}>
+                <TextInput 
+                  style={{paddingHorizontal: 25, paddingVertical: 10, borderBottomColor: '#222222', borderBottomWidth: 1, fontSize: 18, fontWeight: 'bold'}}
+                  placeholder='搜尋關鍵字'
+                  onChange={(event) => {
+                    let {eventCount, target, text} = event.nativeEvent
+                    setSearchStr(text);
+                  }}
+                  value={searchStr} />
+              </View>
+              <TouchableHighlight
+                underlayColor={'transparent'}
+                onPress={() => {
+                  Keyboard.dismiss();
 
-                if(searchStr) {
-                  props.screenProps.dispatch({type: 'SetCateFromSearch', data: searchStr});
-                }
-                
-                props.screenProps.dispatch({type: 'SetIsShowSearch', data: !props.screenProps.state.isShowSearch});
-                setSearchStr('');
-              }}
-              style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
-              <Icon name="search" size={30} />
-            </TouchableHighlight>
-            <TouchableHighlight
-              underlayColor={'transparent'}
-              onPress={() => {
-                Keyboard.dismiss();
-                props.screenProps.dispatch({type: 'SetIsShowSearch', data: !props.screenProps.state.isShowSearch})
-              }}
-              style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
-              <Text>取消</Text>
-            </TouchableHighlight>
+                  if(searchStr) {
+                    props.screenProps.dispatch({type: 'SetCateFromSearch', data: searchStr});
+                  }
+                  
+                  props.screenProps.dispatch({type: 'SetIsShowSearch', data: !props.screenProps.state.isShowSearch});
+                  setSearchStr('');
+                }}
+                style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
+                <Icon name="search" size={30} />
+              </TouchableHighlight>
+              <TouchableHighlight
+                underlayColor={'transparent'}
+                onPress={() => {
+                  Keyboard.dismiss();
+                  props.screenProps.dispatch({type: 'SetIsShowSearch', data: !props.screenProps.state.isShowSearch})
+                }}
+                style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
+                <Text>取消</Text>
+              </TouchableHighlight>
+            </View>
           </View>
-        </View>
+        </SafeAreaView>
         <Search {...props} />
       </Animated.View>
-    </Fragment>
+    </>
   );
 }

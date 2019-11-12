@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "npx react-native run-android",
+    "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "npx react-native start --reset-cache",
+    "start": "npx react-native start",
     "test": "jest",
-    "sync_git": "rsync -av App.tsx comps libs configs package.json readme.md files /media/yaoching/backup/WPs/git/kingautos_app_v1/."
+    "sync_git": "rsync -av App.tsx comps libs configs package.json readme.md files /Users/yaoching/WPS/APPs/kingautos_app/source_code/kingautos_app_v1/."
+
   },
   "dependencies": {
     "@react-native-firebase/analytics": "^6.0.3",
@@ -15,7 +16,7 @@
     "moment": "^2.24.0",
     "native-base": "^2.13.8",
     "react": "16.9.0",
-    "react-native": "0.61.3",
+    "react-native": "0.61.4",
     "react-native-gesture-handler": "^1.5.0",
     "react-native-snap-carousel": "^3.8.4",
     "react-native-vector-icons": "^6.6.0",
@@ -28,7 +29,7 @@
     "@babel/runtime": "^7.6.2",
     "@react-native-community/eslint-config": "^0.0.5",
     "@types/jest": "^24.0.18",
-    "@types/react-native": "^0.60.21",
+    "@types/react-native": "^0.60.22",
     "@types/react-native-snap-carousel": "^3.7.4",
     "@types/react-native-vector-icons": "^6.4.4",
     "@types/react-test-renderer": "16.9.0",

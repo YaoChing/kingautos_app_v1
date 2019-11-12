@@ -5,7 +5,9 @@ import {
   Dimensions,
   TouchableHighlight,
   Animated,
-  ScrollView
+  ScrollView,
+  Platform,
+  SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
@@ -246,7 +248,8 @@ export default (props: GProps) => {
   }, [props.screenProps.state.isShowSideMenu]);
 
   return (
-    <>
+    <SafeAreaView
+      style={{flex: 1}}>
       <TouchableHighlight
         underlayColor="transparent"
         onPress={() => _switchShow()}
@@ -270,7 +273,7 @@ export default (props: GProps) => {
         </TouchableHighlight>
         <ScrollView
           ref={scrollViewRef}
-          style={{flex: 1, paddingHorizontal: 10, marginBottom: 30}}>
+          style={{flex: 1, paddingHorizontal: 10, marginBottom: (Platform.OS !== 'ios') ? 30 : 10}} >
           <View
             style={{width: width * 0.8, height: 70, flexDirection: 'row', alignItems: 'center', paddingVertical: 15}}>
             <Icon name="user" size={45} color="#222222" />
@@ -307,6 +310,6 @@ export default (props: GProps) => {
           </TouchableHighlight>
         </ScrollView>
       </View>
-    </>
+    </SafeAreaView>
   );
 }

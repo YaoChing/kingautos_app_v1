@@ -24,5 +24,9 @@ export interface GProps {
 };
 
 export default (props: GProps) => {
-  return <RouterNavigator screenProps={{state: props.state, dispatch: props.dispatch}} {...props} />;
+  return (
+    <>
+      <RouterNavigator screenProps={{state: props.state, dispatch: props.dispatch}} {...props} />
+    </>
+  );
 }
