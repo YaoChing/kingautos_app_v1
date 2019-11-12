@@ -8,7 +8,7 @@ import {
   getCategoryData
 } from '../../libs/ConnectApi';
 import TotalCategories from '../../configs/TotalCategories';
-import { pageView } from '../../libs/Analytice'
+import { pageView } from '../../libs/Analytice';
 
 import RegenItemCard from './RegenItemCard';
 import GoToTop from './GotoTop';
@@ -27,8 +27,11 @@ export default (props: GProps) => {
   let [cateData, setCateData] = useState({id: 0, data: [], totalPage: 1});
   let [showTopBtn, setShowTopBtn] = useState(false);
   let [isNoData, setIsNoData] = useState(false);
+  let [isSend, setIsSend] = useState(false);
 
   const _regenData = async (page: number) => {
+    if(isSend) return false;
+
     let nowCateID = 0;
     let tempCateName = '';
     let nowCateSlug = props.screenProps.state.nowCate || 'all';
@@ -49,7 +52,7 @@ export default (props: GProps) => {
     }
     
     setNowPage(page);
-    pageView({name: tempCateName, page});
+    pageView({name: '分類_' + tempCateName, page});
 
     return result;
   }
@@ -89,7 +92,7 @@ export default (props: GProps) => {
   }
 
   let _ref: any;
-  let _isSend = false;
+  
 
   const goToTop = () => {
     _ref.scrollToOffset({ animated: true, offset: 0 });
@@ -98,6 +101,7 @@ export default (props: GProps) => {
   return (
     <>
       <FlatList
+        scrollEnabled={!isSend}
         ref={(c) => _ref = c}
         style={{flex: 1}}
         data={cateData.data}
@@ -123,12 +127,14 @@ export default (props: GProps) => {
           }
 
           if(Math.ceil(viewHeight - 10) <= nowScollPos) {
-            if(_isSend) return false;
+            if(isSend) return false;
+
+            setIsSend(true);
 
             let tempPage = nowPage + 1;
 
             if(tempPage > cateData.totalPage) {
-              _isSend = true;
+              setIsSend(false);
               return false;
             }
 
@@ -140,7 +146,7 @@ export default (props: GProps) => {
 
             setCateData(result);
 
-            _isSend = true;
+            setTimeout(() => setIsSend(false), 100);
           }
         }}
         ItemSeparatorComponent={() => {

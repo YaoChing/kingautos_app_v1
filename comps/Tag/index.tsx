@@ -3,11 +3,11 @@ import {
   View,
   FlatList
 } from 'react-native';
-import { Spinner } from 'native-base';
 
 import {
   getTagData
 } from '../../libs/ConnectApi';
+import { pageView } from '../../libs/Analytice';
 
 import RegenItemCard from './RegenItemCard';
 import GoToTop from '../Category/GotoTop';
@@ -25,10 +25,12 @@ export default (props: GProps) => {
   let [nowPage, setNowPage] = useState(1);
   let [cateData, setCateData] = useState({data: [], totalPage: 1});
   let [showTopBtn, setShowTopBtn] = useState(false);
-
   let [isNoData, setIsNoData] = useState(false);
+  let [isSend, setIsSend] = useState(false);
 
   const _regenData = async (page: number) => {
+    if(isSend) return false;
+
     let nowCateSlug = props.screenProps.state.nowCate;
     let result = await _getData(nowCateSlug, page);
 
@@ -37,6 +39,7 @@ export default (props: GProps) => {
     }
     
     setNowPage(page);
+    pageView({name: '關鍵字_' + nowCateSlug, page});
 
     return result;
   }
@@ -76,7 +79,6 @@ export default (props: GProps) => {
   }
 
   let _ref: any;
-  let _isSend = false;
 
   const goToTop = () => {
     _ref.scrollToOffset({ animated: true, offset: 0 });
@@ -85,6 +87,7 @@ export default (props: GProps) => {
   return (
     <>
       <FlatList
+        scrollEnabled={!isSend}
         ref={(c) => _ref = c}
         style={{flex: 1}}
         data={cateData.data}
@@ -110,7 +113,9 @@ export default (props: GProps) => {
           }
 
           if(Math.ceil(viewHeight - 10) <= nowScollPos) {
-            if(_isSend) return false;
+            if(isSend) return false;
+
+            setIsSend(true);
 
             let tempPage = nowPage + 1;
 
@@ -119,13 +124,15 @@ export default (props: GProps) => {
               return false;
             }
 
+            if(isNoData) setIsNoData(false);
+
             let result = await _regenData(tempPage);
 
             result.data = cateData.data.concat(result.data);
 
             setCateData(result);
 
-            _isSend = true;
+            setTimeout(() => setIsSend(false), 100);
           }
         }}
         ItemSeparatorComponent={() => {
