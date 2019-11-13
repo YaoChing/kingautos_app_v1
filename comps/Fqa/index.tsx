@@ -76,6 +76,7 @@ export default (props: FqaProps) => {
       let result = await _regenData(1);
 
       setCateData(result);
+      setShowTopBtn(false);
     })()
   }, [props.screenProps.state.nowArea]);
 
@@ -118,6 +119,7 @@ export default (props: FqaProps) => {
 
     setCateData(result);
     setNowTab(value);
+    setShowTopBtn(false);
   }
 
   const _showSelectTab = () => {

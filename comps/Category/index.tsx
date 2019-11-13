@@ -76,6 +76,7 @@ export default (props: GProps) => {
       let result = await _regenData(1);
 
       setCateData(result);
+      setShowTopBtn(false);
     })()
   }, [props.screenProps.state.nowCate]);
 
