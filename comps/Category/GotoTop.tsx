@@ -1,12 +1,9 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React from 'react';
 import {
   View,
-  TouchableHighlight,
-  Dimensions
+  TouchableHighlight
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
-
-const {height, width} = Dimensions.get('window');
 
 export interface GProps {
   goToTop: () => void
