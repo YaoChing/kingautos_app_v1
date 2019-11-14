@@ -83,3 +83,11 @@ export const getFqaData = async (fqaType: string, page: number) => {
 
   return {data: result.data, totalPage: result.totalPage}
 }
+
+// 取得討論區列表
+export const getWallpaperData = async (page: number) => {
+  let url: string = Constants.apiUrl + '/wallpaper/list/' + page;
+  let result: any = await _fetchData(url);
+
+  return {data: result.data, totalPage: result.totalPage}
+}

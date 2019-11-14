@@ -21,6 +21,8 @@ export const initFunction = (state: any, action: {type: string, data: any}) => {
       return Object.assign({}, state, {nowCate: action.data, nowArea: 'fqaArea'});
     
     // 左側選單
+    case 'SetWallpaperFromSideMenu':
+      return Object.assign({}, state, {nowCate: action.data, nowArea: 'wallpaperArea', isShowSideMenu: false});
     case 'SetFqaFromSideMenu':
       return Object.assign({}, state, {nowCate: action.data, nowArea: 'fqaArea', isShowSideMenu: false});
     case 'SetTagFromSideMenu':
