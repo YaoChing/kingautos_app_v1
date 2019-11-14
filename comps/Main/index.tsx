@@ -11,6 +11,7 @@ import Tag from '../Tag';
 import ConnectUs from '../ConnectUs';
 import Search from '../Search';
 import Fqa from '../Fqa';
+import Wallpaper from '../Wallpaper';
 
 export interface GProps {
   screenProps: {state: any, dispatch: any},
@@ -45,6 +46,9 @@ export default (props: GProps) => {
         break;
       case 'fqaArea':
         scope = <Fqa {...props} />;
+        break;
+      case 'wallpaperArea':
+        scope = <Wallpaper {...props} />;
         break;
       default: 
         scope = <View style={{flex: 1}} />;
