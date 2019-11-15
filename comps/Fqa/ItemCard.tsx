@@ -93,17 +93,17 @@ export default (props: FqaProps) => {
               <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 5, alignItems: 'center'}}>
                 <Text
                   style={{color: '#c2c2c2', fontSize: (Platform.OS === 'ios') ? 13 : 15}}>我想回答</Text>
-                <Icon2 name={'reply'} color='#c2c2c2' size={22} />
+                <Icon2 name={'reply'} color='#c2c2c2' size={(Platform.OS === 'ios') ? 20 : 22} />
               </View>
               <View style={{flex: 0.3, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 5, justifyContent: 'center'}}>
-                <Icon2 name={'message'} color='#c2c2c2' size={22} />
+                <Icon2 name={'message'} color='#c2c2c2' size={(Platform.OS === 'ios') ? 20 : 22} />
                 <Text
                   style={{color: '#222222', fontSize: (Platform.OS === 'ios') ? 13 : 15}}>0</Text>
               </View>
-              <View style={{flex: 0.4, flexDirection: 'row', alignItems: 'flex-end', paddingRight: 5, justifyContent: 'center'}}>
+              <View style={{flex: 0.4, flexDirection: 'row', alignItems: 'center', paddingRight: 5}}>
                 <Text
                   style={{color: '#b71d29', fontSize: (Platform.OS === 'ios') ? 13 : 15}}>繼續閱讀</Text>
-                <Icon name={'caretright'} color='#b71d29' size={19} />
+                <Icon name={'caretright'} color='#b71d29' size={(Platform.OS === 'ios') ? 17 : 19} />
               </View>
             </View>
           </View>

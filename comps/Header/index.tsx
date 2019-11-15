@@ -26,7 +26,7 @@ export interface GProps {
 export default (props: GProps) => {
   let [sideMenuPos, setSideMenuPos] = useState(new Animated.ValueXY({x: 0 - width, y: 0}));
   let [sideBrandPos, setSideBrandPos] = useState(new Animated.ValueXY({x: width, y: 0}));
-  let [searchHotKeywordListPos, setSearchHotKeywordListPos] = useState(new Animated.ValueXY({x: 0, y: height}));
+  let [searchHotKeywordListPos, setSearchHotKeywordListPos] = useState(new Animated.ValueXY({x: width, y: 0}));
   let [searchStr, setSearchStr] = useState('');
 
   const _showSideMenu = () => {
@@ -88,7 +88,7 @@ export default (props: GProps) => {
     Animated.timing(
       searchHotKeywordListPos,
       {
-        toValue: {x: 0, y: height},
+        toValue: {x: width, y: 0},
         duration: 0,
         useNativeDriver: true
       }
@@ -185,11 +185,12 @@ export default (props: GProps) => {
         style={{
           position: 'absolute', 
           zIndex: 999,
-          transform: [{translateY: searchHotKeywordListPos.y}],
+          transform: [{translateX: searchHotKeywordListPos.x}],
           width,
           height
         }}>
-        <SafeAreaView>
+        <SafeAreaView
+          style={{flex: 1}}>
           <View
             style={{width, height: 70, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff'}}>
             <View
@@ -231,8 +232,8 @@ export default (props: GProps) => {
               </TouchableHighlight>
             </View>
           </View>
+          <Search {...props} />
         </SafeAreaView>
-        <Search {...props} />
       </Animated.View>
     </>
   );
