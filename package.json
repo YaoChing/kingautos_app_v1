@@ -5,9 +5,10 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "npx react-native start",
+    "start": "npx react-native start --reset-cache",
     "test": "jest",
-    "sync_git": "rsync -av App.tsx comps libs configs package.json readme.md files /Users/yaoching/WPS/APPs/kingautos_app/source_code/kingautos_app_v1/."
+    "sync_git_android": "rsync -av App.tsx comps libs configs package.json readme.md files /media/yaoching/backup/WPs/git/kingautos_app_v1/.",
+    "sync_git_ios": "rsync -av App.tsx comps libs configs package.json readme.md files /media/yaoching/backup/WPs/git/kingautos_app_v1/."
 
   },
   "dependencies": {
@@ -22,7 +23,8 @@
     "react-native-vector-icons": "^6.6.0",
     "react-native-webview": "^7.4.3",
     "react-navigation": "^4.0.10",
-    "react-navigation-stack": "^1.10.3"
+    "react-navigation-stack": "^1.10.3",
+    "rn-fetch-blob": "^0.11.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
