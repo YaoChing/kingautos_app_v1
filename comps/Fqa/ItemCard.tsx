@@ -89,20 +89,20 @@ export default (props: FqaProps) => {
                 numberOfLines={3}
                 style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, lineHeight: (Platform.OS === 'ios') ? 26 : 28}} >{item.content}</Text>
             </View>
-            <View style={{flex: 0.4, flexDirection: 'row', alignItems: 'center'}}>
-              <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 5, alignItems: 'center'}}>
+            <View style={{flex: 0.4, flexDirection: 'row'}}>
+              <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                 <Text
-                  style={{color: '#c2c2c2', fontSize: (Platform.OS === 'ios') ? 13 : 15}}>我想回答</Text>
+                  style={{color: '#c2c2c2', fontSize: (Platform.OS === 'ios') ? 14 : 16}}>我想回答</Text>
                 <Icon2 name={'reply'} color='#c2c2c2' size={(Platform.OS === 'ios') ? 20 : 22} />
               </View>
               <View style={{flex: 0.3, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 5, justifyContent: 'center'}}>
                 <Icon2 name={'message'} color='#c2c2c2' size={(Platform.OS === 'ios') ? 20 : 22} />
                 <Text
-                  style={{color: '#222222', fontSize: (Platform.OS === 'ios') ? 13 : 15}}>0</Text>
+                  style={{color: '#222222', fontSize: (Platform.OS === 'ios') ? 14 : 16}}>0</Text>
               </View>
-              <View style={{flex: 0.4, flexDirection: 'row', alignItems: 'center', paddingRight: 5}}>
+              <View style={{flex: 0.4, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end'}}>
                 <Text
-                  style={{color: '#b71d29', fontSize: (Platform.OS === 'ios') ? 13 : 15}}>繼續閱讀</Text>
+                  style={{color: '#b71d29', fontSize: (Platform.OS === 'ios') ? 14 : 16}}>繼續閱讀</Text>
                 <Icon name={'caretright'} color='#b71d29' size={(Platform.OS === 'ios') ? 17 : 19} />
               </View>
             </View>

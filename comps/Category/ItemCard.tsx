@@ -114,13 +114,13 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
                 style={{flex: 1, justifyContent: 'center'}}>
                 <Text
                   numberOfLines={1}
-                  style={{fontSize: (Platform.OS === 'ios') ? 12 : 14}}></Text>
+                  style={{fontSize: (Platform.OS === 'ios') ? 13 : 15}}></Text>
               </View>
               <View
                 style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end'}}>
                 <Text
                   numberOfLines={1}
-                  style={{fontSize: (Platform.OS === 'ios') ? 12 : 14}}>{this.state.item.post_date}</Text>
+                  style={{fontSize: (Platform.OS === 'ios') ? 13 : 15}}>{this.state.item.post_date}</Text>
               </View>
             </View>
           </View>
