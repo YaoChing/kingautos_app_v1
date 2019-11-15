@@ -66,7 +66,7 @@ class _CategorySecondLevelItem extends React.PureComponent<_CategorySecondLevelI
         <View
           style={{width:　width * 0.8 * 0.8 - 20, height: 55, paddingHorizontal: 20, justifyContent: 'center', backgroundColor: (nowCate !== item.slug) ? '#ffffff' : '#b71d29'}}>
           <Text
-            style={{fontSize: 18, color: (nowCate !== item.slug) ? '#222222' : '#ffffff'}}>{item.name}</Text>
+            style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, color: (nowCate !== item.slug) ? '#222222' : '#ffffff'}}>{item.name}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -190,7 +190,7 @@ class _CategoryFirstLevelItem extends React.PureComponent<_CategoryFirstLevelIte
             <View
               style={{flex: 1, justifyContent: 'center', paddingVertical: 15, paddingLeft: 5, backgroundColor: (nowCate !== item.slug) ? '#ffffff' : '#b71d29'}}>
               <Text
-                style={{fontSize: 18, color: (nowCate !== item.slug) ? '#222222' : '#ffffff'}}>{item.name}</Text>
+                style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, color: (nowCate !== item.slug) ? '#222222' : '#ffffff'}}>{item.name}</Text>
             </View>
           </TouchableHighlight>
           {(item.subs.length > 0) ? (
@@ -287,7 +287,7 @@ export default (props: GProps) => {
             style={{width: width * 0.8, height: 70, flexDirection: 'row', alignItems: 'center', paddingVertical: 15}}>
             <Icon name="user" size={45} color="#222222" />
             <Text
-              style={{fontSize: 18}}>會員登入</Text>
+              style={{fontSize: (Platform.OS === 'ios') ? 16 : 18}}>會員登入</Text>
           </View>
           <_CategoryScope {...props}/>
           <TouchableHighlight
@@ -301,12 +301,12 @@ export default (props: GProps) => {
               <View
                 style={{width: width * 0.55, height: 55, justifyContent: 'center'}}>
                 <Text
-                style={{fontSize: 18}}>會員專區</Text>
+                style={{fontSize: (Platform.OS === 'ios') ? 16 : 18}}>會員專區</Text>
               </View>
               <View
                 style={{width: width * 0.2, height: 55, justifyContent: 'center', alignItems: 'center'}}>
                 <Text
-                  style={{fontSize: 16}}>登入</Text>
+                  style={{fontSize: (Platform.OS === 'ios') ? 14 : 16}}>登入</Text>
               </View>
             </>
           </TouchableHighlight>
@@ -315,7 +315,7 @@ export default (props: GProps) => {
             onPress={() => props.screenProps.dispatch({type: 'SetAreaFromSideMenu', data: 'connectus'})}
             style={{width: width * 0.8, height: 55, justifyContent: 'center', paddingVertical: 15, paddingLeft: 5, backgroundColor: (props.screenProps.state.nowCate !== 'connectus') ? '#ffffff' : '#b71d29', borderTopColor: '#c2c2c2', borderTopWidth: 1}}>
             <Text
-              style={{fontSize: 18, color: (props.screenProps.state.nowCate !== 'connectus') ? '#222222' : '#ffffff'}}>聯絡我們</Text>
+              style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, color: (props.screenProps.state.nowCate !== 'connectus') ? '#222222' : '#ffffff'}}>聯絡我們</Text>
           </TouchableHighlight>
         </ScrollView>
       </View>

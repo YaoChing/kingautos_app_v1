@@ -4,7 +4,8 @@ import {
   Text,
   FlatList,
   TouchableHighlight,
-  Dimensions
+  Dimensions,
+  Platform
 } from 'react-native';
 
 import {
@@ -61,7 +62,7 @@ class _ItemCard extends React.PureComponent <ItemCardProps, ItemCardState> {
         <View
           style={{width, height: 55, paddingVertical: 15, justifyContent: 'center'}}>
           <Text
-            style={{fontSize: 18}}>{item}</Text>
+            style={{fontSize: (Platform.OS === 'ios') ? 16 : 18}}>{item}</Text>
         </View>
       </TouchableHighlight>
     );

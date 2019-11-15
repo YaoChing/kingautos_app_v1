@@ -65,7 +65,7 @@ class _BrandSecondLevelItem extends React.PureComponent<_BrandSecondLevelItemPro
         <View
           style={{width:　width * 0.8 * 0.8 - 20, height: 55, paddingHorizontal: 20, justifyContent: 'center',backgroundColor: (nowCate !== item.name) ? '#ffffff' : '#b71d29'}}>
           <Text
-            style={{fontSize: 18, color: (nowCate !== item.name) ? '#222222' : '#ffffff'}}>{item.name}</Text>
+            style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, color: (nowCate !== item.name) ? '#222222' : '#ffffff'}}>{item.name}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -179,7 +179,7 @@ class _BrandFirstLevelItem extends React.PureComponent<_BrandFirstLevelItemProps
             <View
               style={{flex: 1, justifyContent: 'center', paddingLeft: 5}}>
               <Text
-                style={{fontSize: 18}}>{item.name}</Text>
+                style={{fontSize: (Platform.OS === 'ios') ? 16 : 18}}>{item.name}</Text>
             </View>
           </TouchableHighlight>
           {(item.subs.length > 0) ? (

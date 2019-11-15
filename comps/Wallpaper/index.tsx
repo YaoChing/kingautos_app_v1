@@ -5,7 +5,8 @@ import {
   Image,
   Dimensions,
   FlatList,
-  TouchableHighlight
+  TouchableHighlight,
+  Platform
 } from 'react-native';
 import RNFetchBlob from 'rn-fetch-blob'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -243,7 +244,7 @@ export default (props: GProps) => {
           <View
             style={{position: 'absolute', width: width * 0.75, height: 50, backgroundColor: '#ffffff', justifyContent: 'center', alignItems: 'center', borderRadius: 10}}>
             <Text
-              style={{color: '#222222', fontSize: 18}}>{downloadStatus}</Text>
+              style={{color: '#222222', fontSize: (Platform.OS === 'ios') ? 16 : 18}}>{downloadStatus}</Text>
           </View>
         </View>
       )}

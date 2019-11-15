@@ -156,7 +156,7 @@ export default (props: FqaProps) => {
           <View
             style={{flex: 1}}>
             <Text
-              style={{fontSize: 18, fontWeight: 'bold', fontStyle: 'italic'}}>{nowTabName}</Text>
+              style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, fontWeight: 'bold', fontStyle: 'italic'}}>{nowTabName}</Text>
           </View>
           <View
             style={{flex: 0.2, alignItems: 'flex-end', paddingRight: 30}}>
@@ -271,7 +271,7 @@ export default (props: FqaProps) => {
                     <View
                       style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                       <Text
-                        style={{fontSize: 18, fontWeight: 'bold'}}>{item.name}</Text>
+                        style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, fontWeight: 'bold'}}>{item.name}</Text>
                     </View>
                   </TouchableHighlight>
                 );

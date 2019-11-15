@@ -5,7 +5,8 @@ import {
   Text,
   TouchableHighlight,
   Dimensions,
-  FlatList
+  FlatList,
+  Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
@@ -46,7 +47,7 @@ export default (props: FavoriteListGProps) => {
         <View
           style={{flex: 0.05, padding: 10, justifyContent: 'center', alignItems: 'center'}}>
           <Text
-            style={{fontSize: 16}}>
+            style={{fontSize: (Platform.OS === 'ios') ? 16 : 18}}>
             請選擇有興趣的分類，上限八個
           </Text>
         </View>
@@ -62,7 +63,7 @@ export default (props: FavoriteListGProps) => {
               <View
                 style={{width: width * 0.3, marginHorizontal: 5, marginVertical: 10, borderColor: '#c2c2c2', borderWidth: 1, borderRadius: 10, justifyContent: 'center', alignItems: 'center', paddingVertical: 10}}>
                 <Text
-                  style={{fontSize: 16}}>{item.name}</Text>
+                  style={{fontSize: (Platform.OS === 'ios') ? 16 : 18}}>{item.name}</Text>
               </View>
             );
           }}
@@ -74,7 +75,7 @@ export default (props: FavoriteListGProps) => {
             onPress={() => props.navigation.goBack()}
             style={{flex: 1, padding: 10, justifyContent: 'center', alignItems: 'center', margin: 1, backgroundColor: '#b1090c'}} >
             <Text
-              style={{fontSize: 16, color: '#ffffff'}}>
+              style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, color: '#ffffff'}}>
               確定
             </Text>
           </TouchableHighlight>
@@ -83,7 +84,7 @@ export default (props: FavoriteListGProps) => {
             onPress={() => props.navigation.goBack()}
             style={{flex: 1, padding: 10, justifyContent: 'center', alignItems: 'center', marginVertical: 1, marginRight: 1, backgroundColor: '#888'}} >
             <Text
-              style={{fontSize: 16, color: '#ffffff'}}>
+              style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, color: '#ffffff'}}>
               取消
             </Text>
           </TouchableHighlight>

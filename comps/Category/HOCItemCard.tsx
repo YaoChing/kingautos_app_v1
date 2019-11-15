@@ -2,7 +2,8 @@ import React from 'react';
 import {
   View,
   Text,
-  Dimensions
+  Dimensions,
+  Platform
 } from 'react-native';
 
 const {height, width} = Dimensions.get('window');
@@ -70,12 +71,12 @@ export default (WrappedComponent: any, state: any, fn: () => void) => {
               <View
                 style={{flex: (breadcrumbIdent.length < 3) ? 0.15 : 0.2}}>
                 <Text
-                  style={{fontSize: 18, color: '#b71d29', fontStyle: 'italic'}}>{breadcrumbIdent}</Text>
+                  style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, color: '#b71d29', fontStyle: 'italic'}}>{breadcrumbIdent}</Text>
               </View>
               <View
                 style={{flex: 1}}>
                 <Text
-                  style={{fontSize: 18, color: '#b71d29', fontWeight: 'bold'}}>{breadcrumbTitle}</Text>
+                  style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, color: '#b71d29', fontWeight: 'bold'}}>{breadcrumbTitle}</Text>
               </View>
             </View>
           )

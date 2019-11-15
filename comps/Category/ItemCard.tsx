@@ -3,7 +3,8 @@ import {
   View,
   Text,
   Dimensions,
-  Image
+  Image,
+  Platform
 } from 'react-native';
 import { Spinner } from 'native-base';
 
@@ -105,21 +106,21 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
               style={{flex: 1, paddingHorizontal: 10}}>
               <Text
                 numberOfLines={3}
-                style={{fontSize: 18}}>{this.state.item.title}</Text>
+                style={{fontSize: (Platform.OS === 'ios') ? 16 : 18, lineHeight: (Platform.OS === 'ios') ? 26 : 28}}>{this.state.item.title}</Text>
             </View>
             <View
-              style={{flex: 0.5, flexDirection: 'row', paddingHorizontal: 10}}>
+              style={{flex: 0.2, flexDirection: 'row', paddingHorizontal: 10}}>
               <View
                 style={{flex: 1, justifyContent: 'center'}}>
                 <Text
                   numberOfLines={1}
-                  style={{fontSize: 14}}></Text>
+                  style={{fontSize: (Platform.OS === 'ios') ? 12 : 14}}></Text>
               </View>
               <View
                 style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end'}}>
                 <Text
                   numberOfLines={1}
-                  style={{fontSize: 14}}>{this.state.item.post_date}</Text>
+                  style={{fontSize: (Platform.OS === 'ios') ? 12 : 14}}>{this.state.item.post_date}</Text>
               </View>
             </View>
           </View>
