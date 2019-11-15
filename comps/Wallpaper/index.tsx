@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import RNFetchBlob from 'rn-fetch-blob'
 import Icon from 'react-native-vector-icons/Entypo';
-import {Spinner} from 'native-base'
+import {Spinner} from 'native-base';
+import CameraRoll from "@react-native-community/cameraroll";
 
 import {
   getWallpaperData
@@ -128,24 +129,42 @@ export default (props: GProps) => {
     setDownloadStatus('下載中....');
 
     let dirs = RNFetchBlob.fs.dirs;
+    let configs: any = {
+      fileCache: true,
+      path : dirs.DocumentDir + '/' + filename
+    };
+
+    if(Platform.OS === 'android') {
+      configs = {
+        fileCache: true,
+        addAndroidDownloads : {
+          useDownloadManager: true,
+          notification : false,
+          mime : 'image/jpg',
+          description : '檔案處理中',
+          mediaScannable: true,
+          path : dirs.DownloadDir + '/' + filename,
+        }
+      }
+    }
 
     RNFetchBlob
-    .config({
-      addAndroidDownloads : {
-        useDownloadManager: true,
-        notification : false,
-        mime : 'image/jpg',
-        description : '檔案處理中',
-        mediaScannable: true,
-        path : dirs.DownloadDir + '/' + filename,
-      }
-    })
+    .config(configs)
     .fetch('GET', 'https://images.kingautos.net/wallpaper/uploads/' + filename)
     .then((res) => {
-      RNFetchBlob.android.actionViewIntent(res.path(), dirs.DownloadDir);
-      
-      setTimeout(() => setShowAlert(false), 500);
-      setDownloadStatus('下載完畢');
+      if(Platform.OS !== 'ios') {
+        RNFetchBlob.android.actionViewIntent(res.path(), dirs.DownloadDir);
+
+        setTimeout(() => setShowAlert(false), 500);
+        setDownloadStatus('下載完畢');
+      } else {
+        CameraRoll.saveToCameraRoll(res.path())
+          .then((res) => {
+            setTimeout(() => setShowAlert(false), 500);
+            setDownloadStatus('下載完畢');
+          })
+          .catch(err => console.log('err:', err));
+      }
     })
     .catch((err) => {
       console.log(err);
