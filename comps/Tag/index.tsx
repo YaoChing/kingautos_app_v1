@@ -1,7 +1,8 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {
   View,
-  FlatList
+  FlatList,
+  RefreshControl
 } from 'react-native';
 
 import {
@@ -27,6 +28,7 @@ export default (props: GProps) => {
   let [showTopBtn, setShowTopBtn] = useState(false);
   let [isNoData, setIsNoData] = useState(false);
   let [isSend, setIsSend] = useState(false);
+  let [refreshing, setRefreshing] = React.useState(false);
 
   const _regenData = async (page: number) => {
     if(isSend) return false;
@@ -97,6 +99,16 @@ export default (props: GProps) => {
         removeClippedSubviews={true} 
         initialNumToRender={10}
         scrollEventThrottle={160}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={async () => {
+            setCateData({data: [], totalPage: 1});
+
+            let result = await _regenData(1);
+
+            setCateData(result);
+            setShowTopBtn(false);
+          }} />
+        }
         onContentSizeChange={(w, h) => {
           _contentHeight = h;
         }}

@@ -6,7 +6,8 @@ import {
   Dimensions,
   TouchableHighlight,
   Animated,
-  Platform
+  Platform,
+  RefreshControl
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { pageView } from '../../libs/Analytice';
@@ -41,6 +42,7 @@ export default (props: FqaProps) => {
   let [isShowTabList, setIsShowTabList] = useState(new Animated.ValueXY({x: 0, y: height}));
   let flatListRef = useRef<FlatList<null>>(null);
   let [isSend, setIsSend] = useState(false);
+  let [refreshing, setRefreshing] = React.useState(false);
   
   const _regenData = async (page: number) => {
     if(isSend) return false;
@@ -174,6 +176,16 @@ export default (props: FqaProps) => {
         removeClippedSubviews={true} 
         initialNumToRender={10}
         scrollEventThrottle={160}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={async () => {
+            setCateData({data: [], totalPage: 1});
+
+            let result = await _regenData(1);
+
+            setCateData(result);
+            setShowTopBtn(false);
+          }} />
+        }
         onContentSizeChange={(w, h) => {
           _contentHeight = h;
         }}
