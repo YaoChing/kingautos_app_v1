@@ -37,7 +37,7 @@ export default (props: FqaProps) => {
       <View
         style={{flex: 1}}>
         <View 
-          style={{width: width - 20, height: 300, margin: 10, borderColor: '#c2c2c2', borderWidth: 1, borderRadius: 10}}>
+          style={{width: width - 20, height: 300, marginHorizontal: 10, marginVertical: 5, borderColor: '#c2c2c2', borderWidth: 1, borderRadius: 10}}>
           <View
             style={{flex: 0.35, flexDirection: 'row', marginHorizontal: 10}}>
             <View

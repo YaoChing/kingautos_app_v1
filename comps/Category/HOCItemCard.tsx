@@ -67,7 +67,7 @@ export default (WrappedComponent: any, state: any, fn: () => void) => {
         if(breadcrumbTitle && this.props.rnowIndex === 0) {
           breadcrumbScope = (
             <View
-              style={{width, height: 35, flexDirection: 'row', padding: 5, marginHorizontal: 10, marginTop: 10, marginBottom: 5, alignItems: 'center', borderLeftColor: '#b71d29', borderLeftWidth: 8}}>
+              style={{width, height: 35, flexDirection: 'row', padding: 5, margin: 10, alignItems: 'center', borderLeftColor: '#b71d29', borderLeftWidth: 8}}>
               <View
                 style={{flex: (breadcrumbIdent.length < 3) ? 0.15 : 0.2}}>
                 <Text

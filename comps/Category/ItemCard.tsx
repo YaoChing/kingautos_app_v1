@@ -95,7 +95,7 @@ export default class _ItemCard extends React.PureComponent <ItemCardProps, ItemC
     return (
       <>
         <View
-          style={{width: width - 10, height: this.state.srcSmallHeight * this.state.smallScale, flexDirection: 'row', margin: 5}}>
+          style={{width: width - 10, height: this.state.srcSmallHeight * this.state.smallScale, flexDirection: 'row', marginHorizontal: 10, marginVertical: 5}}>
           <Image
             style={{width: this.state.smallWidth, height: this.state.srcSmallHeight * this.state.smallScale}}
             source={(this.state.imgOnLoad) ? {uri: imgStr} : require('../../files/prepare.jpg')}
